@@ -76,6 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 
+    <h1> Yoss test </h1>
+
     <div class="container">
         <h2 class="mt-5">Log In</h2>
         <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
