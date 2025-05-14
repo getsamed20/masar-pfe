@@ -215,24 +215,26 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
 </div>
 
         </div>
+
+        
+    <!-- Display "Seen" under the last message if it was seen -->
     <?php endwhile; ?>
 
-    <!-- Display "Seen" under the last message if it was seen -->
-    <?php if ($lastMessage && $lastMessage['sender_id'] == $currentUserId): ?>
-        <?php
-        // Check if the message was seen by the receiver
-        $seen_query = "SELECT seen FROM messages 
-               WHERE message_id = " . $lastMessage['message_id'] . " 
-                 AND receiver_id = $selectedId 
-                 AND sender_id = $currentUserId";
-
-        $seen_result = mysqli_query($conn, $seen_query);
-        $seen_status = mysqli_fetch_assoc($seen_result)['seen'] ?? 0;
-        ?>
-        <?php if ($seen_status == 1): ?>
-            <div class="text-center text-muted" style="font-size: 0.8em;">Seen</div>
-        <?php endif; ?>
+<!-- Display "Seen" under the last message only if it was sent by the current user and was seen -->
+<?php if ($lastMessage && $lastMessage['sender_id'] == $currentUserId): ?>
+    <?php
+    $seen_query = "SELECT seen FROM messages 
+                   WHERE message_id = {$lastMessage['message_id']} 
+                   AND receiver_id = $selectedId 
+                   AND sender_id = $currentUserId";
+    $seen_result = mysqli_query($conn, $seen_query);
+    $seen_status = mysqli_fetch_assoc($seen_result)['seen'] ?? 0;
+    ?>
+    <?php if ($seen_status == 1): ?>
+        <div class="text-end text-muted" style="font-size: 0.8em;">Seen</div>
     <?php endif; ?>
+<?php endif; ?>
+
 </div>
 
 
@@ -244,7 +246,7 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                         <i class="bi bi-plus-lg"></i> Add Attachment
                     </label>
                     <input type="file" name="attachment" id="fileInput" class="d-none" accept="image/*,video/*,.pdf,.doc,.docx">
-                    <input type="text" name="message" class="form-control" placeholder="Type a message..." required>
+                    <input type="text" name="message" class="form-control" placeholder="Type a message..." >
                     <button class="btn btn-primary" type="submit">
                         <i class="bi bi-send-fill"></i> Send
                     </button>

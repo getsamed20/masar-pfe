@@ -4,7 +4,7 @@ include('../includes/db.php');
 $loggedIn = false;
 $profileLink = '#';
 $messagesLink = '#';
-$newMessages = false; 
+$newMessages = false; // Track if there are new messages
 
 if (isset($_SESSION['email'])) {
     $loggedIn = true;
@@ -15,6 +15,7 @@ if (isset($_SESSION['email'])) {
     $role = $user['role'];
     $userId = $user['user_id'];
 
+    // Check for unread messages
     $messageQuery = mysqli_query($conn, "SELECT * FROM messages WHERE receiver_id = '$userId' AND seen = 0");
     if (mysqli_num_rows($messageQuery) > 0) {
         $newMessages = true;
