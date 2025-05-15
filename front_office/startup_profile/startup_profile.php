@@ -77,8 +77,8 @@ $startup_id = $startup['startup_id'];
             <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" 
                  class="rounded-circle" 
                  style="
-                    width: 120px; 
-                    height: 120px; 
+                    width: 123px; 
+                    height: 123px; 
                     object-fit: cover; 
                     position: absolute; 
                     bottom: -60px; 
@@ -87,6 +87,7 @@ $startup_id = $startup['startup_id'];
                 ">
         <?php endif; ?>
     </div>
+            <div style="height: 60px;"></div>
 
     <div class="text-center mt-5 mb-4">
         <h2><?php echo htmlspecialchars($startup['startup_name']); ?></h2>

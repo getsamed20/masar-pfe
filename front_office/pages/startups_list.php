@@ -36,29 +36,44 @@ $result = mysqli_query($conn, $query);
     </form>
 
     <div class="row">
-        <?php if (mysqli_num_rows($result) > 0): ?>
-            <?php while ($startup = mysqli_fetch_assoc($result)): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 d-flex flex-column shadow-sm">
+    <?php if (mysqli_num_rows($result) > 0): ?>
+        <?php while ($startup = mysqli_fetch_assoc($result)): ?>
+            <div class="col-md-4 mb-4">
+                <div class="profile-info mb-4 shadow" style="height: 477px; position: relative; border-radius: 30px;">
+                    <div class="top-child text-center" style="height: 198px; width: 100%; background-color: rgb(53, 121, 188); position: relative; border-radius: 30px 30px 0 0;">
                         <?php if (!empty($startup['logo'])): ?>
-                            <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" class="card-img-top" alt="Logo" style="height: 200px; object-fit: contain;">
+                            <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" 
+                                 class="rounded-circle shadow" 
+                                 style="
+                                    width: 125px; 
+                                    height: 125px; 
+                                    object-fit: cover; 
+                                    position: absolute; 
+                                    bottom: -50px; 
+                                    left: 50%; 
+                                    transform: translateX(-50%);
+                                ">
                         <?php endif; ?>
-                        <div class="card-body flex-grow-1 d-flex flex-column">
-                            <h5 class="card-title"><?php echo htmlspecialchars($startup['startup_name']); ?></h5>
-                            <p class="card-text flex-grow-1"><?php echo nl2br(htmlspecialchars(mb_strimwidth($startup['about_section'], 0, 100, '...'))); ?></p>
-                            <div class="mt-auto text-end">
-                                <a href="view_startup_profile.php?id=<?php echo $startup['user_id']; ?>&type=startup" class="btn btn-outline-primary">View Profile</a>
-                            </div>
+                    </div>
+
+                    <div style="height: 60px;"></div>
+
+                    <div class="card-body flex-grow-1 d-flex flex-column text-center px-3">
+                        <h5 class="card-title mt-2"><?php echo htmlspecialchars($startup['startup_name']); ?></h5>
+                        <p class="card-text flex-grow-1">
+                            <?php echo nl2br(htmlspecialchars(mb_strimwidth($startup['about_section'], 0, 100, '...'))); ?>
+                        </p>
+                        <div class="mt-auto">
+                            <a href="view_startup_profile.php?id=<?php echo $startup['user_id']; ?>&type=startup" class="btn btn-outline-primary">View Profile</a>
                         </div>
                     </div>
                 </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p class="text-center text-muted">
-                No startups<?php echo $search ? ' found for "' . htmlspecialchars($search) . '"' : ''; ?>.
-            </p>
-        <?php endif; ?>
-    </div>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p class="text-center text-muted">No startups<?php echo $search ? ' found for "' . htmlspecialchars($search) . '"' : ''; ?>.</p>
+    <?php endif; ?>
+</div>
 </div>
 
 <?php include('../components/footer.php'); ?>
