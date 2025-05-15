@@ -1,4 +1,4 @@
-<?php 
+<?php  
 session_start();
 include('../includes/db.php');
 
@@ -25,28 +25,77 @@ $startup_id = $startup['startup_id'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .navbar { margin-bottom: 20px; }
-        .profile-info { background-color: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .profile-info { background-color: #f8f9fa; padding: 20px; border-radius: 30px; height: 680px; padding: 0;}
         .media-preview img, .media-preview video { max-width: 100%; max-height: 300px; margin: 5px 0; }
-        .badge { font-size: 0.8rem; }
+        .content-section {margin-top: 20px;}
+        .section-btn {
+    background: none;
+    border: none;
+    color: #0d6efd;
+    font-weight: 500;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.section-btn:hover,
+.section-btn:focus,
+.section-btn:active {
+    color: #d63384;
+    text-decoration: underline;
+    outline: none;
+}
+
+.btn-outline-pink {
+    color: #d63384;
+    border: 1px solid #d63384;
+    background-color: transparent;
+}
+
+.btn-outline-pink:hover,
+.btn-outline-pink:focus,
+.btn-outline-pink:active {
+    color: white;
+    background-color: #d63384;
+    border-color: #d63384;
+}
+
+
+
     </style>
 </head>
 <body>
 <?php include('../components/navbar.php'); ?>
 
-<div class="container mt-4" style="padding-left: 200px; padding-right: 200px;">
-    <h2 class="text-center my-4">Welcome, <?php echo htmlspecialchars($startup['startup_name']); ?>!</h2>
+<div class="container mt-4" style="padding-left: 150px; padding-right: 150px;">
 
     <div class="row">
+        <!-- LEFT SIDEBAR -->
         <div class="col-md-4">
-            <div class="profile-info mb-4">
-                <?php if (!empty($startup['logo'])): ?>
-                    <div class="text-center mb-3">
-                        <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" class="rounded-circle border" style="width: 120px; height: 120px; object-fit: cover;">
-                    </div>
-                <?php endif; ?>
+            <div class="profile-info mb-4" style="height: 800px; background-color: #f8f9fa; position: relative;">
+    <div class="top-child text-center" style="height: 198px; width: 100%; background-color:rgb(53, 121, 188); position: relative;border-radius: 30px 30px 0 0;">
+        <?php if (!empty($startup['logo'])): ?>
+            <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" 
+                 class="rounded-circle" 
+                 style="
+                    width: 120px; 
+                    height: 120px; 
+                    object-fit: cover; 
+                    position: absolute; 
+                    bottom: -60px; 
+                    left: 50%; 
+                    transform: translateX(-50%);
+                ">
+        <?php endif; ?>
+    </div>
 
-                <h4>Contact Info</h4>
-                <?php if (!empty($startup['contact_email'])): ?>
+    <div class="text-center mt-5 mb-4">
+        <h2><?php echo htmlspecialchars($startup['startup_name']); ?></h2>
+    </div>
+
+                <h4 class="mt-3">About</h4>
+                <p><?php echo nl2br(htmlspecialchars($startup['about_section'])); ?></p>
+
+<?php if (!empty($startup['contact_email'])): ?>
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($startup['contact_email']); ?></p>
                 <?php endif; ?>
                 <?php if (!empty($startup['phone_number'])): ?>
@@ -59,10 +108,7 @@ $startup_id = $startup['startup_id'];
                     <p><strong>Website:</strong> <a href="<?php echo htmlspecialchars($startup['website_url']); ?>" target="_blank"><?php echo htmlspecialchars($startup['website_url']); ?></a></p>
                 <?php endif; ?>
 
-                <h4 class="mt-3">About</h4>
-                <p><?php echo nl2br(htmlspecialchars($startup['about_section'])); ?></p>
 
-                <h4 class="mt-3">Social</h4>
                 <ul>
                     <?php if (!empty($startup['facebook_link'])): ?>
                         <li><a href="<?php echo htmlspecialchars($startup['facebook_link']); ?>" target="_blank">Facebook</a></li>
@@ -84,36 +130,106 @@ $startup_id = $startup['startup_id'];
             </div>
         </div>
 
+        <!-- MAIN CONTENT -->
         <div class="col-md-8">
-            <ul class="nav nav-tabs" id="createTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="post-tab" data-bs-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="true">Posts</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="idea-tab" data-bs-toggle="tab" href="#idea" role="tab" aria-controls="idea" aria-selected="false">Ideas</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="solution-tab" data-bs-toggle="tab" href="#solution" role="tab" aria-controls="solution" aria-selected="false">Proposed Solutions</a>
-                </li>
-            </ul>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Left-aligned links -->
+    <div>
+        <button class="section-btn me-2" onclick="showSection('post')">Posts</button>
+        <button class="section-btn me-2" onclick="showSection('idea')">Ideas</button>
+        <button class="section-btn" onclick="showSection('solution')">Proposed Solutions</button>
+    </div>
 
-            <div class="tab-content mt-3" id="createTabsContent">
-                <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post-tab">
-                    <?php include('posts/posts.php'); ?>
+    <!-- Right-aligned Create button -->
+    <div class="dropdown">
+        <button class="btn btn-outline-pink dropdown-toggle" type="button" id="createDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            + Create
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="createDropdown">
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addPostModal">Create Post</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addIdeaModal">Create Idea</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+            <div id="post-section" class="content-section">
+    <?php include('posts/posts.php'); ?>
+</div>
+<div id="idea-section" class="content-section d-none">
+    <?php include('ideas/ideas.php'); ?>
+</div>
+<div id="solution-section" class="content-section d-none">
+    <?php include('solutions.php'); ?>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Add Post Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="posts/add_post.php" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPostModalLabel">Share Something</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="tab-pane fade" id="idea" role="tabpanel" aria-labelledby="idea-tab">
-                    <?php include('ideas/ideas.php'); ?>
+                <div class="modal-body">
+                    <label class="form-label mt-3">Content</label>
+                    <textarea name="content" class="form-control" rows="4" required></textarea>
+
+                    <label class="form-label mt-3">Media (images/videos)</label>
+                    <input type="file" name="media[]" class="form-control" multiple>
                 </div>
-                <div class="tab-pane fade" id="solution" role="tabpanel" aria-labelledby="solution-tab">
-                    <?php include('solutions.php'); ?>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Publish Post</button>
                 </div>
-            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Idea Modal -->
+<div class="modal fade" id="addIdeaModal" tabindex="-1" aria-labelledby="addIdeaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="ideas/add_idea.php" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addIdeaModalLabel">Propose a New Idea</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" required>
+
+                    <label class="form-label mt-3">Description</label>
+                    <textarea name="description" class="form-control" rows="4" required></textarea>
+
+                    <label class="form-label mt-3">Attachments (images/videos)</label>
+                    <input type="file" name="media[]" class="form-control" multiple>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Submit Idea</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <?php include('../components/footer.php'); ?>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function showSection(section) {
+        const sections = ['post', 'idea', 'solution'];
+        sections.forEach(id => {
+            document.getElementById(id + '-section').classList.add('d-none');
+        });
+        document.getElementById(section + '-section').classList.remove('d-none');
+    }
+</script>
+
 </body>
 </html>

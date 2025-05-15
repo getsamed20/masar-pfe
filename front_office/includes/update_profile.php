@@ -60,12 +60,91 @@ $profileLink= ($role=='startup')? '../startup_profile/startup_profile.php' : '..
 <head>
     <title>Edit Profile - Masar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    body {
+        background: #f8f9fa;
+    }
+
+    .container {
+        max-width: 700px;
+        background-color: #ffffff;
+        padding: 2.5rem 3rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+        color: #343a40;
+    }
+
+    label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px 15px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.25);
+    }
+
+    textarea.form-control {
+        resize: none;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-weight: 600;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0a58ca, #0d6efd);
+    }
+
+    input[type="file"].form-control {
+        padding: 10px;
+        background-color: #f1f3f5;
+        border: 1px solid #ced4da;
+    }
+
+    img {
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+</style>
+
 </head>
 <body>
 
 <div class="container mt-5">
     <h2>Edit Your Profile</h2>
     <form method="POST" enctype="multipart/form-data">
+
+         <div class="mb-3">
+                <?php if (!empty($profile['logo'])): ?>
+        <p class="mt-2">Current logo: <img src="../uploads/<?php echo htmlspecialchars($profile['logo']); ?>"class="rounded-circle border" style="width: 70px; height: 70px; object-fit: cover;"></p>
+    <?php endif; ?>
+    <label>Upload Logo</label>
+    <input type="file" name="logo" class="form-control">
+
+        </div>
+        <div class="mb-3">
+            <label>About Section</label>
+            <textarea name="about" class="form-control" rows="5"><?php echo htmlspecialchars($profile['about_section']); ?></textarea>
+        </div>
+
         <div class="mb-3">
             <label>Contact Email</label>
             <input type="email" name="contact_email" class="form-control" value="<?php echo htmlspecialchars($profile['contact_email'] ?? ''); ?>">
@@ -98,18 +177,8 @@ $profileLink= ($role=='startup')? '../startup_profile/startup_profile.php' : '..
             <label>Instagram</label>
             <input type="text" name="instagram" class="form-control" value="<?php echo htmlspecialchars($profile['instagram_link']); ?>">
         </div>
-        <div class="mb-3">
-            <label>About Section</label>
-            <textarea name="about" class="form-control" rows="5"><?php echo htmlspecialchars($profile['about_section']); ?></textarea>
-        </div>
 
-        <div class="mb-3">
-    <label>Upload Logo</label>
-    <input type="file" name="logo" class="form-control">
-    <?php if (!empty($profile['logo'])): ?>
-        <p class="mt-2">Current logo: <img src="../uploads/<?php echo htmlspecialchars($profile['logo']); ?>"class="rounded-circle border" style="width: 70px; height: 70px; object-fit: cover;"></p>
-    <?php endif; ?>
-        </div>
+       
 
         <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>

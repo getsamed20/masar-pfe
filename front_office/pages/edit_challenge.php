@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = mysqli_real_escape_string($conn, $_POST['challenge_title']);
     $description = mysqli_real_escape_string($conn, $_POST['challenge_description']);
     $deadline = mysqli_real_escape_string($conn, $_POST['challenge_deadline']);
-
+    $category = mysqli_real_escape_string($conn, $_POST['challenge_category']);
     $file_path = '';
     if (isset($_FILES['challenge_file']) && $_FILES['challenge_file']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['challenge_file']['tmp_name'];
@@ -22,10 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $updateQuery = "
-    UPDATE challenges 
-    SET title = '$title', description = '$description', deadline = '$deadline'
-    WHERE challenge_id = '$challenge_id'";
+    $updateQuery = "UPDATE challenges SET title='$title', description='$description', deadline='$deadline', category='$category' WHERE challenge_id='$challenge_id'";
 
 
     $result = mysqli_query($conn, $updateQuery);

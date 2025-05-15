@@ -16,13 +16,13 @@ if (isset($_GET['user_id']) && isset($_GET['status'])) {
 
     $sql = "UPDATE users SET status = '$status' WHERE user_id = $user_id";
     if (mysqli_query($conn, $sql)) {
-        header("Location: dashboard.php");
+        header("Location: manage_accounts.php");
         exit();
     } else {
         echo "Error updating user status: " . mysqli_error($conn);
     }
 } else {
-    header("Location: dashboard.php");
+    header("Location: manage_accounts.php");
     exit();
 }
 ?>

@@ -9,7 +9,6 @@ $startup_id = $startup_data['startup_id'];
 
 $ideas = mysqli_query($conn, "SELECT * FROM ideas WHERE startup_id = $startup_id");
 
-echo '<div class="mb-5"><h4>Ideas</h4>';
 
 while ($i = mysqli_fetch_assoc($ideas)) {
     $idea_id = $i['idea_id'];

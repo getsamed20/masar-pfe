@@ -15,6 +15,22 @@
           <div class="mb-2"><label>Title</label><input type="text" name="challenge_title" class="form-control" required></div>
           <div class="mb-2"><label>Description</label><textarea name="challenge_description" rows="4" class="form-control" required></textarea></div>
           <div class="mb-2"><label>Deadline</label><input type="date" name="challenge_deadline" class="form-control" required></div>
+          
+          
+          <label for="challenge_category">Category:</label>
+<select name="challenge_category" id="challenge_category" class="form-control" required>
+    <option value="Operations">Operations</option>
+    <option value="Design & Planning">Design & Planning</option>
+    <option value="Land Use & Urban Planning">Land Use & Urban Planning</option>
+    <option value="Vehicles">Vehicles</option>
+    <option value="Automated Enforcement">Automated Enforcement</option>
+    <option value="ITS & Data Utilization">ITS & Data Utilization</option>
+    <option value="Police Enforcement">Police Enforcement</option>
+    <option value="Legislation & Regulations">Legislation & Regulations</option>
+    <option value="Training, Awareness & Education">Training, Awareness & Education</option>
+    <option value="Other" selected>Other</option>
+</select>
+
           <div class="mb-2"><label>Attach File (PDF, DOC, etc.)</label>
             <input type="file" name="challenge_file" class="form-control">
           </div>
