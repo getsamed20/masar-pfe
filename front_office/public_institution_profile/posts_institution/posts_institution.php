@@ -1,33 +1,3 @@
-<!-- Add Post Button -->
-<div class="mb-4 text-end">
-    <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#addPostModal">
-        + Add Post
-    </button>
-</div>
-
-<!-- Add Post Modal -->
-<div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <form action="posts_institution/add_post_institution.php" method="post" enctype="multipart/form-data">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addPostModalLabel">Share Something</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label class="form-label mt-3">Content</label>
-                    <textarea name="content" class="form-control" rows="4" required></textarea>
-                    <label class="form-label mt-3">Media (images/videos)</label>
-                    <input type="file" name="media[]" class="form-control" multiple>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Publish Post</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <?php 
 $posts = mysqli_query($conn, "SELECT * FROM posts_institution WHERE institution_id = '$institution_id' ORDER BY created_at DESC");
 

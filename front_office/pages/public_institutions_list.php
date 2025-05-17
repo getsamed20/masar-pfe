@@ -40,16 +40,29 @@ $result = mysqli_query($conn, $query);
         <?php if (mysqli_num_rows($result) > 0): ?>
             <?php while ($institution = mysqli_fetch_assoc($result)): ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 d-flex flex-column shadow-sm">
-                        <?php if (!empty($institution['logo'])): ?>
-                            <img src="../uploads/<?php echo htmlspecialchars($institution['logo']); ?>" class="card-img-top" alt="Logo" style="height: 200px; object-fit: contain;">
-                        <?php endif; ?>
-                        <div class="card-body flex-grow-1 d-flex flex-column">
+                    <div class="profile-info mb-4 shadow" style="height: 477px; position: relative; border-radius: 30px;">
+<div class="top-child text-center" style="height: 198px; width: 100%; background-image: url('../images/account_bg.png'); background-size: cover; background-position: center; position: relative; border-radius: 30px 30px 0 0;">
+                            <?php if (!empty($institution['logo'])): ?>
+                                <img src="../uploads/<?php echo htmlspecialchars($institution['logo']); ?>" 
+                                     class="rounded-circle" 
+                                     alt="Logo"
+                                     style="
+                                        width: 120px; 
+                                        height: 120px; 
+                                        object-fit: cover; 
+                                        position: absolute; 
+                                        bottom: -60px; 
+                                        left: 50%; 
+                                        transform: translateX(-50%);
+                                     ">
+                            <?php endif; ?>
+                        </div>
+                         <div style="height: 45px;"></div>
+
+                        <div class="card-body text-center mt-5 pt-4 px-3">
                             <h5 class="card-title"><?php echo htmlspecialchars($institution['institution_name']); ?></h5>
-                            <p class="card-text flex-grow-1"><?php echo nl2br(htmlspecialchars(mb_strimwidth($institution['description'], 0, 100, '...'))); ?></p>
-                            <div class="mt-auto text-end">
-                                <a href="view_institution_profile.php?id=<?php echo $institution['user_id']; ?>&type=institution" class="btn btn-outline-primary">View Profile</a>
-                            </div>
+                            <p class="card-text"><?php echo nl2br(htmlspecialchars(mb_strimwidth($institution['description'], 0, 100, '...'))); ?></p>
+                            <a href="view_institution_profile.php?id=<?php echo $institution['user_id']; ?>&type=institution" class="btn btn-outline-primary">View Profile</a>
                         </div>
                     </div>
                 </div>

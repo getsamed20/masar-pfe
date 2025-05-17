@@ -34,7 +34,6 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
     $unseen_result = mysqli_query($conn, $unseen_query);
     $unseen = mysqli_fetch_assoc($unseen_result)['unseen_count'] ?? 0;
 
-    // Try fetching from startups
     $res = mysqli_query($conn, "SELECT startup_name AS name, logo FROM startups WHERE user_id = $other_id");
     if ($res && mysqli_num_rows($res) > 0) {
         $startup = mysqli_fetch_assoc($res);
@@ -48,7 +47,6 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
         continue;
     }
 
-    // Try fetching from public institutions
     $res = mysqli_query($conn, "SELECT institution_name AS name, logo FROM public_institutions WHERE user_id = $other_id");
     if ($res && mysqli_num_rows($res) > 0) {
         $inst = mysqli_fetch_assoc($res);
@@ -174,7 +172,7 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
     <?php 
     $lastMessage = null;
     while ($msg = mysqli_fetch_assoc($messages_result)): 
-        $lastMessage = $msg; // Store the last message for later checking
+        $lastMessage = $msg;
         ?>
         <div class="mb-2 <?= ($msg['sender_id'] == $currentUserId) ? 'text-end' : 'text-start' ?>">
             <div class="d-inline-block px-3 py-2 rounded" style="background-color: <?= ($msg['sender_id'] == $currentUserId) ? '#d1e7dd' : '#e2e3e5' ?>;">
@@ -203,7 +201,6 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
         $msg['sender_id'] == $currentUserId &&
         $msg['message_id'] == $lastMessage['message_id']
     ) {
-        // Check if the last message sent by current user was seen
         $seen_check = mysqli_query($conn, "SELECT seen FROM messages 
             WHERE message_id = {$msg['message_id']} AND receiver_id = $selectedId AND sender_id = $currentUserId");
         $seen_value = mysqli_fetch_assoc($seen_check)['seen'] ?? 0;
@@ -217,10 +214,8 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
         </div>
 
         
-    <!-- Display "Seen" under the last message if it was seen -->
     <?php endwhile; ?>
 
-<!-- Display "Seen" under the last message only if it was sent by the current user and was seen -->
 <?php if ($lastMessage && $lastMessage['sender_id'] == $currentUserId): ?>
     <?php
     $seen_query = "SELECT seen FROM messages 
@@ -258,7 +253,6 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
     </div>
 </div>
 
-<!-- Modal for image preview -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -275,9 +269,7 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
     div.scrollTop = div.scrollHeight;
   }
 
-  // Scroll on page load
   window.onload = scrollToBottom;
-    // Image preview in modal
     const imageModal = document.getElementById('imageModal');
     imageModal.addEventListener('show.bs.modal', function (event) {
         const trigger = event.relatedTarget;

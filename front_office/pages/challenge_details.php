@@ -52,6 +52,8 @@ $challenge = mysqli_fetch_assoc($getChallenge);
       <p><?= nl2br(htmlspecialchars($challenge['description'])) ?></p>
 
       <p><strong>Date Created:</strong> <?= date('F j, Y', strtotime($challenge['created_at'])) ?></p>
+      <p><strong>Category:</strong> <?= htmlspecialchars($challenge['category'] ?? 'Unspecified') ?></p>
+
 
       <?php if ($getChallengeMedia && mysqli_num_rows($getChallengeMedia) > 0): ?>
   <p><strong>Attached Files:</strong></p>
@@ -175,6 +177,25 @@ $challenge = mysqli_fetch_assoc($getChallenge);
             <label class="form-label">Deadline</label>
             <input type="date" class="form-control" name="challenge_deadline" value="<?= htmlspecialchars($challenge['deadline']) ?>" required>
           </div>
+
+<div class="mb-3">
+  <label class="form-label">Category</label>
+<select name="challenge_category" class="form-control" required>
+  <option value="">Select Category</option>
+  <option value="Operations" <?= $challenge['category'] == 'Operations' ? 'selected' : '' ?>>Operations</option>
+  <option value="Design & Planning" <?= $challenge['category'] == 'Design & Planning' ? 'selected' : '' ?>>Design & Planning</option>
+  <option value="Land Use & Urban Planning" <?= $challenge['category'] == 'Land Use & Urban Planning' ? 'selected' : '' ?>>Land Use & Urban Planning</option>
+  <option value="Vehicles" <?= $challenge['category'] == 'Vehicles' ? 'selected' : '' ?>>Vehicles</option>
+  <option value="Automated Enforcement" <?= $challenge['category'] == 'Automated Enforcement' ? 'selected' : '' ?>>Automated Enforcement</option>
+  <option value="ITS & Data Utilization" <?= $challenge['category'] == 'ITS & Data Utilization' ? 'selected' : '' ?>>ITS & Data Utilization</option>
+  <option value="Police Enforcement" <?= $challenge['category'] == 'Police Enforcement' ? 'selected' : '' ?>>Police Enforcement</option>
+  <option value="Legislation & Regulations" <?= $challenge['category'] == 'Legislation & Regulations' ? 'selected' : '' ?>>Legislation & Regulations</option>
+  <option value="Training, Awareness & Education" <?= $challenge['category'] == 'Training, Awareness & Education' ? 'selected' : '' ?>>Training, Awareness & Education</option>
+  <option value="Other" <?= $challenge['category'] == 'Other' ? 'selected' : '' ?>>Other</option>
+</select>
+
+</div>
+
 
           <div class="mb-3">
             <label class="form-label">Replace Attached File (Optional)</label>

@@ -20,9 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $challenge_title = mysqli_real_escape_string($conn, $_POST['challenge_title']);
     $challenge_description = mysqli_real_escape_string($conn, $_POST['challenge_description']);
     $challenge_deadline = mysqli_real_escape_string($conn, $_POST['challenge_deadline']);
+    $challenge_category = mysqli_real_escape_string($conn, $_POST['challenge_category']);
 
-    $query = "INSERT INTO challenges (institution_id, title, description, deadline, posted_at, created_at)
-              VALUES ('$institution_id', '$challenge_title', '$challenge_description', '$challenge_deadline', NOW(), NOW())";
+    $query = "INSERT INTO challenges (institution_id, title, description, deadline, category, posted_at, created_at)
+              VALUES ('$institution_id', '$challenge_title', '$challenge_description', '$challenge_deadline', '$challenge_category', NOW(), NOW())";
 
     if (mysqli_query($conn, $query)) {
         $challenge_id = mysqli_insert_id($conn); 

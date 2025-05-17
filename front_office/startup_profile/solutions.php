@@ -12,9 +12,6 @@ $query = "SELECT s.*, c.title AS challenge_title, pi.institution_name
 
 $result = mysqli_query($conn, $query);
 ?>
-
-<h4>Your Proposed Solutions</h4>
-
 <?php if (mysqli_num_rows($result) > 0): ?>
     <?php while ($solution = mysqli_fetch_assoc($result)): ?>
         <div class="card mb-3">

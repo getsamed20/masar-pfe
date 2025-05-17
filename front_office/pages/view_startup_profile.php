@@ -98,7 +98,7 @@ $startup_id = $data['startup_id'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        You need to be logged in to start a chat. 😎
+        You need to be logged in to start a chat.
       </div>
       <div class="modal-footer">
         <a href="../authentication/login.php" class="btn btn-primary">Login</a>
