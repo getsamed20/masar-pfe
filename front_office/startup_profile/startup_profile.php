@@ -71,8 +71,9 @@ $startup_id = $startup['startup_id'];
     <div class="row">
         <!-- LEFT SIDEBAR -->
         <div class="col-md-4">
-            <div class="profile-info mb-4" style="height: 800px; background-color: #f8f9fa; position: relative;">
-    <div class="top-child text-center" style="height: 198px; width: 100%; background-color:rgb(53, 121, 188); position: relative;border-radius: 30px 30px 0 0;">
+    <div class="profile-info mb-4" style="height: 800px; background-color: #f8f9fa; position: relative;">
+
+    <div class="top-child text-center" style="height: 198px; width: 100%; background-image: url('../images/account_bg.png'); background-size: cover; background-position: center; position: relative;border-radius: 30px 30px 0 0;">
         <?php if (!empty($startup['logo'])): ?>
             <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" 
                  class="rounded-circle" 
@@ -87,24 +88,31 @@ $startup_id = $startup['startup_id'];
                 ">
         <?php endif; ?>
     </div>
-            <div style="height: 60px;"></div>
+            <div style="height: 45px;"></div>
 
     <div class="text-center mt-5 mb-4">
         <h2><?php echo htmlspecialchars($startup['startup_name']); ?></h2>
     </div>
-
+<div class="mx-4">
+    
                 <h4 class="mt-3">About</h4>
                 <p><?php echo nl2br(htmlspecialchars($startup['about_section'])); ?></p>
 
-<?php if (!empty($startup['contact_email'])): ?>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($startup['contact_email']); ?></p>
+
+                 <?php if (!empty($startup['address'])): ?>
+                    <p><strong>Address:</strong> <?php echo htmlspecialchars($startup['address']); ?></p>
                 <?php endif; ?>
+                
                 <?php if (!empty($startup['phone_number'])): ?>
                     <p><strong>Phone:</strong> <?php echo htmlspecialchars($startup['phone_number']); ?></p>
                 <?php endif; ?>
-                <?php if (!empty($startup['address'])): ?>
-                    <p><strong>Address:</strong> <?php echo htmlspecialchars($startup['address']); ?></p>
+
+                <?php if (!empty($startup['contact_email'])): ?>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($startup['contact_email']); ?></p>
                 <?php endif; ?>
+               
+
+
                 <?php if (!empty($startup['website_url'])): ?>
                     <p><strong>Website:</strong> <a href="<?php echo htmlspecialchars($startup['website_url']); ?>" target="_blank"><?php echo htmlspecialchars($startup['website_url']); ?></a></p>
                 <?php endif; ?>
@@ -130,18 +138,16 @@ $startup_id = $startup['startup_id'];
                 </div>
             </div>
         </div>
-
+</div>
         <!-- MAIN CONTENT -->
         <div class="col-md-8">
             <div class="d-flex justify-content-between align-items-center mb-3">
-    <!-- Left-aligned links -->
     <div>
         <button class="section-btn me-2" onclick="showSection('post')">Posts</button>
         <button class="section-btn me-2" onclick="showSection('idea')">Ideas</button>
         <button class="section-btn" onclick="showSection('solution')">Proposed Solutions</button>
     </div>
 
-    <!-- Right-aligned Create button -->
     <div class="dropdown">
         <button class="btn btn-outline-pink dropdown-toggle" type="button" id="createDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             + Create
@@ -221,7 +227,8 @@ $startup_id = $startup['startup_id'];
 </div>
 
 <?php include('../components/footer.php'); ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script>
     function showSection(section) {
         const sections = ['post', 'idea', 'solution'];

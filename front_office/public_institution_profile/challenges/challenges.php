@@ -1,76 +1,41 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4>Challenges</h4>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addChallengeModal">+ Add Challenge</button>
-</div>
-
-<div class="modal fade" id="addChallengeModal" tabindex="-1" aria-labelledby="addChallengeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-    <form method="post" action="challenges/add_challenge.php" enctype="multipart/form-data">
-    <div class="modal-header">
-          <h5 class="modal-title" id="addChallengeModalLabel">Create New Challenge</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-2"><label>Title</label><input type="text" name="challenge_title" class="form-control" required></div>
-          <div class="mb-2"><label>Description</label><textarea name="challenge_description" rows="4" class="form-control" required></textarea></div>
-          <div class="mb-2"><label>Deadline</label><input type="date" name="challenge_deadline" class="form-control" required></div>
-          
-          
-          <label for="challenge_category">Category:</label>
-<select name="challenge_category" id="challenge_category" class="form-control" required>
-    <option value="Operations">Operations</option>
-    <option value="Design & Planning">Design & Planning</option>
-    <option value="Land Use & Urban Planning">Land Use & Urban Planning</option>
-    <option value="Vehicles">Vehicles</option>
-    <option value="Automated Enforcement">Automated Enforcement</option>
-    <option value="ITS & Data Utilization">ITS & Data Utilization</option>
-    <option value="Police Enforcement">Police Enforcement</option>
-    <option value="Legislation & Regulations">Legislation & Regulations</option>
-    <option value="Training, Awareness & Education">Training, Awareness & Education</option>
-    <option value="Other" selected>Other</option>
-</select>
-
-          <div class="mb-2"><label>Attach File (PDF, DOC, etc.)</label>
-            <input type="file" name="challenge_file" class="form-control">
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Publish Challenge</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<hr class="my-4">
-<h4 class="mb-3">My Challenges</h4>
-
 <?php 
+// challenges.php
+
+// Make sure $conn and $institution are defined before including this file
+
+$selectedChallengeId = isset($_GET['challenge_id']) ? $_GET['challenge_id'] : null;
+
 $challenges = mysqli_query($conn, "SELECT * FROM challenges WHERE institution_id = '{$institution['institution_id']}' ORDER BY created_at DESC");
-while ($challenge = mysqli_fetch_assoc($challenges)): ?>
-    <div class="card mb-3 challenge-card" 
-         data-challenge-id="<?php echo $challenge['challenge_id']; ?>" 
-         style="cursor: pointer;">
-        <div class="card-body">
-        <a href="challenge_details.php?challenge_id=<?php echo $challenge['challenge_id']; ?>">Open</a>
-        <h5><?php echo $challenge['title']; ?></h5>
-            <p><?php echo $challenge['description']; ?></p>
-            <p><strong>Deadline:</strong> <?php echo $challenge['deadline']; ?></p>
+?>
+
+<div id="challenges-section">
+    <h3>Challenges</h3>
+
+    <?php while ($challenge = mysqli_fetch_assoc($challenges)): 
+        $isExpanded = ($challenge['challenge_id'] == $selectedChallengeId);
+    ?>
+        <div class="card mb-3 challenge-card" data-challenge-id="<?php echo $challenge['challenge_id']; ?>" style="cursor: default;">
+            <div class="card-body">
+                <h5><?php echo htmlspecialchars($challenge['title']); ?></h5>
+
+                <?php if ($isExpanded): ?>
+                    <p><?php echo nl2br(htmlspecialchars($challenge['description'])); ?></p>
+                    <p><strong>Deadline:</strong> <?php echo htmlspecialchars($challenge['deadline']); ?></p>
+
+                    <!-- Optional: Show any extra fields, like attachments -->
+                    <?php if (!empty($challenge['file_attachment'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($challenge['file_attachment']); ?>" download>Download Attachment</a><br>
+                    <?php endif; ?>
+
+                    <!-- Link to collapse/hide details -->
+                    <a href="public_institution_profile.php#challenges-section">Hide</a>
+
+                <?php else: ?>
+                    <p><?php echo htmlspecialchars(substr($challenge['description'], 0, 100)); ?>...</p>
+                    <a href="?challenge_id=<?php echo $challenge['challenge_id']; ?>#challenges-section">See More</a>
+                <?php endif; ?>
+
+            </div>
         </div>
-    </div><?php endwhile; ?>
-
-
-<script>
-    document.querySelectorAll('.challenge-card').forEach(card => {
-        card.addEventListener('click', function (e) {
-            if (e.target.closest('button') || e.target.closest('a')) return;
-
-            const challengeId = this.dataset.challengeId;
-            window.location.href = `../pages/challenge_details.php?challenge_id=${challengeId}`;
-          });
-    });
-</script>
-  </body>
-  </html>
+    <?php endwhile; ?>
+</div>

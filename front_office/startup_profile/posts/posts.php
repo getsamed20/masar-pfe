@@ -2,7 +2,6 @@
 
 $posts = mysqli_query($conn, "SELECT * FROM posts WHERE startup_id = '$startup_id' ORDER BY created_at DESC");
 
-echo '<div class="mb-5"><h4>My Posts</h4>';
 
 while ($p = mysqli_fetch_assoc($posts)) {
     $post_id = $p['post_id'];
@@ -65,7 +64,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
     echo '</div></div>';
 }
 
-echo '</div>';
 ?>
 
 

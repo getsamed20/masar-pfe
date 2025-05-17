@@ -54,6 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,42 +66,96 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('../images/auth_bg.png') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .login-container {
+            width: 50%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+            height: 100vh;
+            overflow-y: auto;
+        }
+
         .error {
             color: red;
             font-size: 14px;
         }
 
-        .hidden {
-            display: none;
-        }
-    </style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #EFEFFF;
+    }
+
+    .login-container {
+        border-radius: 60px 0 0 60px;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .form-control {
+        height: 53px;
+        font-size: 20px;
+        border-radius: 10px;
+        
+    }
+
+    .center {
+        text-align: center;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2 class="mt-5">Log In</h2>
-        <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
-        <form id="loginForm" action="" method="POST">
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                <label for="email">Email</label>
+    <div class="login-container">
+        <div class="form-wrapper">
+            <div class="center">
+                <img class="mb-4" src="../images/masar-logo.png" alt="Masar Logo">
+                <h2 class="mb-4">Welcome Back!</h2>
             </div>
 
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                <label for="password">Password</label>
-            </div>
+            <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
 
-            <button type="submit" class="btn btn-primary w-100">Sign In</button>
-        </form>
+            <form id="loginForm" action="" method="POST">
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                </div>
 
-        <p class="mt-3 text-center">Don't have an account? <a href="register.php">Sign Up</a></p>
-        <p class="text-center"><a href="forgot_password.php">Forgot Password?</a></p>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                </div>
+                <p><a href="forgot_password.php"  style="color: #9FA5B8;">Forgot Password?</a></p>
 
+
+                <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            </form>
+
+            <p class="mt-3 text-center"   style="color: #9FA5B8;">Don't have an account? <a href="register.php">Sign Up</a></p>
+        </div>
     </div>
+</body>
 
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -131,6 +187,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         });
     </script>
-
 </body>
 </html>

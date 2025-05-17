@@ -41,7 +41,7 @@ $result = mysqli_query($conn, $query);
             <?php while ($institution = mysqli_fetch_assoc($result)): ?>
                 <div class="col-md-4 mb-4">
                     <div class="profile-info mb-4 shadow" style="height: 477px; position: relative; border-radius: 30px;">
-                        <div class="top-child text-center" style="height: 198px; width: 100%; background-color: rgb(53, 121, 188); position: relative; border-radius: 30px 30px 0 0;">
+<div class="top-child text-center" style="height: 198px; width: 100%; background-image: url('../images/account_bg.png'); background-size: cover; background-position: center; position: relative; border-radius: 30px 30px 0 0;">
                             <?php if (!empty($institution['logo'])): ?>
                                 <img src="../uploads/<?php echo htmlspecialchars($institution['logo']); ?>" 
                                      class="rounded-circle" 
@@ -57,6 +57,8 @@ $result = mysqli_query($conn, $query);
                                      ">
                             <?php endif; ?>
                         </div>
+                         <div style="height: 45px;"></div>
+
                         <div class="card-body text-center mt-5 pt-4 px-3">
                             <h5 class="card-title"><?php echo htmlspecialchars($institution['institution_name']); ?></h5>
                             <p class="card-text"><?php echo nl2br(htmlspecialchars(mb_strimwidth($institution['description'], 0, 100, '...'))); ?></p>
