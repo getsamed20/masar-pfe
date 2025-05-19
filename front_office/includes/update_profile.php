@@ -15,11 +15,9 @@ $role = $user['role'];
 $user_id = $user['user_id'];
 $table = $role === 'startup' ? 'startups' : 'public_institutions';
 
-// Fetch profile data
 $profile = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM $table WHERE user_id = '$user_id'"));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect form data
     $contact_email = $_POST['contact_email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
@@ -30,17 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $instagram = $_POST['instagram'];
     $about = $_POST['about'];
 
-    // Handle logo upload if startup
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] === 0) {
         $logo_name = uniqid() . '_' . $_FILES['logo']['name'];
         move_uploaded_file($_FILES['logo']['tmp_name'], "../uploads/$logo_name");
 
-        // Update with logo
         $update = "UPDATE $table SET contact_email='$contact_email', phone_number='$phone', address='$address', website_url='$website',
             facebook_link='$facebook', linkedin_link='$linkedin', x_link='$x', instagram_link='$instagram',
             about_section='$about', logo='$logo_name' WHERE user_id='$user_id'";
     } else {
-        // Update without logo
         $update = "UPDATE $table SET contact_email='$contact_email', phone_number='$phone', address='$address', website_url='$website',
             facebook_link='$facebook', linkedin_link='$linkedin', x_link='$x', instagram_link='$instagram',
             about_section='$about' WHERE user_id='$user_id'";

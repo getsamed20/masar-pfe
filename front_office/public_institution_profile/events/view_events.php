@@ -1,4 +1,3 @@
-<!-- Display Events -->
 <hr class="my-4">
 <h4 class="mb-3">Events</h4>
 

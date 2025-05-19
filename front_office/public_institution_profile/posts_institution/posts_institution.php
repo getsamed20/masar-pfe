@@ -21,7 +21,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
     echo '<div class="card mb-4"><div class="card-body">';
     echo '<p>' . nl2br(htmlspecialchars($p['content'])) . '</p>';
 
-    // Image Carousel
     if (!empty($images)) {
         $carouselId = "carouselPost" . $post_id;
         echo '<div id="' . $carouselId . '" class="carousel slide mb-3" data-bs-ride="carousel">';
@@ -46,7 +45,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
         echo '</div>';
     }
 
-    // Video Preview
     foreach ($videos as $vid) {
         echo '<video controls class="w-100 rounded mb-2">
                 <source src="../uploads/' . $vid . '" type="video/mp4">
@@ -54,7 +52,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
               </video>';
     }
 
-    // Buttons
     echo '<div class="mt-3 d-flex justify-content-end gap-2">';
     echo '<button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPostModal' . $post_id . '">Edit</button>';
     echo '<a href="posts_institution/delete_post_institution.php?id=post_' . $post_id . '" class="btn btn-sm btn-outline-danger" onclick="return confirm(\'Are you sure you want to delete this post?\')">Delete</a>';
@@ -62,7 +59,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
 
     echo '</div></div>';
 
-    // Edit Modal
     echo '
     <div class="modal fade" id="editPostModal' . $post_id . '" tabindex="-1" aria-labelledby="editPostModalLabel' . $post_id . '" aria-hidden="true">
         <div class="modal-dialog">

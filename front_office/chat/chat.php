@@ -29,7 +29,6 @@ $contact_result = mysqli_query($conn, $contact_query);
 while ($row = mysqli_fetch_assoc($contact_result)) {
     $other_id = $row['contact_id'];
 
-    // Count unseen messages
     $unseen_query = "SELECT COUNT(*) as unseen_count FROM messages WHERE sender_id = $other_id AND receiver_id = $currentUserId AND seen = 0";
     $unseen_result = mysqli_query($conn, $unseen_query);
     $unseen = mysqli_fetch_assoc($unseen_result)['unseen_count'] ?? 0;
@@ -152,7 +151,6 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                 $contact_name = $contact_row ? $contact_row['institution_name'] : 'Unknown Institution';
             }
 
-            // Mark messages as seen
             $mark_seen_query = "UPDATE messages 
                                 SET seen = 1 
                                 WHERE sender_id = $selectedId AND receiver_id = $currentUserId AND seen = 0";

@@ -27,7 +27,6 @@ if (mysqli_num_rows($result) === 0) {
 
 $solution = mysqli_fetch_assoc($result);
 
-// Handle status update
 if (isset($_POST['update_status'])) {
     $new_status = $_POST['new_status'];
 

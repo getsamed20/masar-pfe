@@ -20,16 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $post_id = mysqli_real_escape_string($conn, $_POST['post_id']);
     $content = mysqli_real_escape_string($conn, $_POST['content']);
 
-    // Verify post belongs to the current startup
     $check = mysqli_query($conn, "SELECT * FROM posts WHERE post_id = '$post_id' AND startup_id = '$startup_id'");
     if (mysqli_num_rows($check) === 0) {
         die("Unauthorized access.");
     }
 
-    // Update content
     mysqli_query($conn, "UPDATE posts SET content = '$content' WHERE post_id = '$post_id'");
 
-    // Handle new media files
     foreach ($_FILES['media']['tmp_name'] as $key => $tmp_name) {
         if ($_FILES['media']['error'][$key] === 0) {
             $file_name = basename($_FILES['media']['name'][$key]);

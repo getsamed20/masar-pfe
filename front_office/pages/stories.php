@@ -12,13 +12,11 @@ include('../includes/db.php');
         $story_id = $story['story_id'];
         $title = htmlspecialchars($story['title']);
         $content = htmlspecialchars($story['content']);
-        // Limit content to 150 chars for preview
         $preview = strlen($content) > 150 ? substr($content, 0, 150) . '…' : $content;
 
         echo '<div class="col">';
-        echo '<div class="card h-100 rounded-4 shadow-sm">';  // rounded corners, shadow, full height
+        echo '<div class="card h-100 rounded-4 shadow-sm">';
         echo '<div class="card-body d-flex flex-column">';
-        // Title as clickable link
         echo "<h5 class='card-title'><a href='story_detail.php?id=$story_id' class='text-decoration-none stretched-link'>$title</a></h5>";
         echo "<p class='card-text flex-grow-1'>" . nl2br($preview) . "</p>";
         echo "<a href='story_detail.php?id=$story_id' class='btn btn-primary mt-auto'>Read More</a>";

@@ -6,7 +6,7 @@ $error = "";
 $registrationSuccess = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $role = $_POST['role'];
+    $role = isset($_POST['role']) ? $_POST['role'] : '';
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -16,13 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($password !== $confirmPassword) {
         $error = "Passwords do not match.";
     } else {
-        // Handle commercial register file (PDF)
         $commercial_register = $_FILES['commercial_register']['name'];
         $target_dir = "../uploads/";
         $commercial_register_target = $target_dir . basename($commercial_register);
         $commercial_register_type = strtolower(pathinfo($commercial_register_target, PATHINFO_EXTENSION));
 
-        // Handle logo upload (image)
         $logo = $_FILES['logo']['name'];
         $logo_tmp = $_FILES['logo']['tmp_name'];
         $logo_ext = strtolower(pathinfo($logo, PATHINFO_EXTENSION));
@@ -30,16 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $logo_file = "";
         
 
-        // Check if email exists in either table
         $check_email = mysqli_query($conn, "SELECT * FROM pending_accounts WHERE email = '$email'");
         $check_users = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
 
         if (mysqli_num_rows($check_email) === 0 && mysqli_num_rows($check_users) === 0 
             && $_FILES['commercial_register']['error'] == 0 && $commercial_register_type == "pdf") {
 
-            // Move commercial register
             if (move_uploaded_file($_FILES["commercial_register"]["tmp_name"], $commercial_register_target)) {
-                // Handle logo upload if valid
                 if (in_array($logo_ext, $allowed_image_types) && $_FILES['logo']['error'] == 0) {
                     $logo_file = uniqid() . "." . $logo_ext;
                     $logo_target = $target_dir . $logo_file;
@@ -48,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // Insert into pending accounts
                 $insert_pending = mysqli_query($conn, 
                     "INSERT INTO pending_accounts (name, email, password, unique_identifier, commercial_register, role, logo) 
                      VALUES ('$name', '$email', '$hashed_password', '$unique_identifier', '$commercial_register', '$role', '$logo_file')");
@@ -77,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
     <style>
@@ -123,25 +118,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: red;
             font-size: 14px;
         }
-        .custom-file-upload .upload-label {
-  display: inline-block;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background-color: #f8f9fa;
-  font-size: 14px;
-  color: #333;
-}
+   .custom-file-upload {
+    position: relative;
+    width: 450px;
+    height: 53px;
+    font-size: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
 
-.custom-file-upload .upload-label:hover {
-  background-color: #e9ecef;
-}
+  .custom-file-upload input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+  }
 
-.custom-file-upload .file-name {
-  color: grey;
-  margin-left: 8px;
-}
+  .custom-file-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    color: grey;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .custom-file-label i {
+    color: grey;
+    font-size: 20px;
+  }
         .hidden { display: none; }
 
 
@@ -172,6 +189,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   color: #999;
 }
 
+  .custom-select {
+    width: 100%;
+    height: 53px;
+    font-size: 18px;
+    border-radius: 10px;
+    color: grey;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 10px 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" fill="grey"><path d="M0 0l7 7 7-7"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+  }
+
+  .custom-select:focus {
+    outline: none;
+    border-color: #888;
+  }
+
+  .custom-select option {
+    color: black;
+  }
+
+  .custom-select option:disabled {
+    color: grey;
+  }
+
 
     </style>
 </head>
@@ -186,11 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="../images/masar-logo.png" alt="Masar Logo" class="mb-3">
             <h2>Welcome! First things first...</h2>
         </div>
-
         <?php if (!empty($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
-        <?php // if ($registrationSuccess) echo "<div class='alert alert-success'>Registration successful. Awaiting approval.</div>"; ?>
-
-
         <form id="signupForm" method="POST" enctype="multipart/form-data">
             <div class="mb-3 text-center">
   <label for="logoUpload" class="logo-upload-label">
@@ -206,11 +250,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" class="form-control" id="name" name="name" placeholder="Organization Name" required>
   </div>
   <div class="col-md-6">
-    <select class="form-select" id="role" name="role" required>
-      <option selected disabled>Organization Type</option>
-      <option value="startup">Startup</option>
-      <option value="institution">Public Institution</option>
-    </select>
+   <select class="custom-select" id="role" name="role" required>
+  <option selected disabled>Organization Type</option>
+  <option value="startup">Startup</option>
+  <option value="institution">Public Institution</option>
+</select>
   </div>
 </div>
 
@@ -227,9 +271,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" name="unique_identifier" class="form-control" placeholder="Unique Identifier" required>
             </div>
             <div class="mb-3">
-  <div class="custom-file-upload">
-    <input type="file" name="commercial_register" accept=".pdf" class="form-control" required placeholder="Document"   >
+<div class="custom-file-upload">
+  <input type="file" name="commercial_register" accept=".pdf" required onchange="updateFileName(this)">
+  <div class="custom-file-label" id="fileLabel">
+    <span id="fileLabelText">Document</span>
+    <i class="fas fa-file-pdf"></i>
   </div>
+</div>
 </div>
 <div class="form-check mb-3">
   <input class="form-check-input" type="checkbox" id="termsCheckbox" required>
@@ -263,7 +311,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script>
@@ -304,14 +351,22 @@ document.getElementById('logoUpload').addEventListener('change', function (e) {
     }
 });
 
-
-
+  function updateFileName(input) {
+    const labelText = document.getElementById('fileLabelText');
+    if (input.files.length > 0) {
+      labelText.textContent = input.files[0].name;
+      labelText.style.color = '#000';
+    } else {
+      labelText.textContent = 'Document';
+      labelText.style.color = 'grey';
+    }
+  }
 
 </script>
 
 
 
-<!-- Terms & Conditions Modal -->
+<!-- Terms and Conditions Modal -->
 <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">

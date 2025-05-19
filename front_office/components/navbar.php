@@ -4,7 +4,7 @@ include('../includes/db.php');
 $loggedIn = false;
 $profileLink = '#';
 $messagesLink = '#';
-$newMessages = false; // Track if there are new messages
+$newMessages = false;
 
 if (isset($_SESSION['email'])) {
     $loggedIn = true;
@@ -15,7 +15,6 @@ if (isset($_SESSION['email'])) {
     $role = $user['role'];
     $userId = $user['user_id'];
 
-    // Check for unread messages
     $messageQuery = mysqli_query($conn, "SELECT * FROM messages WHERE receiver_id = '$userId' AND seen = 0");
     if (mysqli_num_rows($messageQuery) > 0) {
         $newMessages = true;
@@ -73,7 +72,7 @@ if (isset($_SESSION['email'])) {
     </div>
 </nav>
 
-<!-- Modal for login -->
+<!--login modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
