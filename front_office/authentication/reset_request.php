@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $update_sql = "UPDATE users SET reset_token = '$token', token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE email = '$email'";
         $conn->query($update_sql);
 
-        $reset_link = "http://yourdomain.com/reset_password.php?token=" . $token;
+        $reset_link = "http://localhost/masar-pfe/reset_password.php?token=" . $token;
         
         require 'PHPMailer/src/Exception.php';
         require 'PHPMailer/src/PHPMailer.php';
