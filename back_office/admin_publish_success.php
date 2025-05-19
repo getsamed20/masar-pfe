@@ -16,7 +16,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
   <title>Publish Success Story</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container py-4">
+<body>
+<?php include('admin_navbar.php'); ?>
+<div class="container py-4">
 
   <h2>Publish a New Success Story</h2>
 
@@ -32,6 +34,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
   <h3 class="mb-3">Published Stories</h3>
   <?php include 'success_stories.php'; ?>
-
+</div>
 </body>
 </html>

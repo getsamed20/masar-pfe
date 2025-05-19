@@ -75,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['document_file'])) {
     <h4 class="mt-4">Uploaded Documents</h4>
     <?php
     
-    
+    //$admin_id = mysqli_real_escape_string($conn, $_SESSION['admin_id']);
+    //$query = "SELECT * FROM documents WHERE admin_id = '$admin_id' ORDER BY uploaded_at DESC";
 
     $query = "SELECT * FROM documents ORDER BY uploaded_at DESC";
     $result = mysqli_query($conn, $query);

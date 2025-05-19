@@ -149,7 +149,8 @@ $challenge = mysqli_fetch_assoc($getChallenge);
 </div>
 
 <?php if ($role === 'institution' && $institution_id == $challenge['institution_id']): ?>
-<div class="modal fade" id="editChallengeModal<?= $challenge['challenge_id'] ?>" tabindex="-1" aria-labelledby="editChallengeModalLabel" aria-hidden="true">
+
+  <div class="modal fade" id="editChallengeModal<?= $challenge['challenge_id'] ?>" tabindex="-1" aria-labelledby="editChallengeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form method="POST" action="edit_challenge.php" enctype="multipart/form-data">
