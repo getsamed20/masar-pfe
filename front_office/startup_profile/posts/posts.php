@@ -9,7 +9,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
     $images = [];
     $videos = [];
 
-    // Separate images and videos
     while ($m = mysqli_fetch_assoc($media)) {
         if ($m['media_type'] === 'image') {
             $images[] = $m['file_path'];
@@ -21,7 +20,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
     echo '<div class="card mb-4"><div class="card-body">';
     echo '<p>' . nl2br(htmlspecialchars($p['content'])) . '</p>';
 
-    // Image Carousel (if there are images)
     if (!empty($images)) {
         $carouselId = "carouselPost" . $post_id;
         echo '<div id="' . $carouselId . '" class="carousel slide mb-3" data-bs-ride="carousel">';
@@ -48,7 +46,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
         echo '</div>';
     }
 
-    // Video previews (if there are videos)
     foreach ($videos as $vid) {
         echo '<video controls class="w-100 rounded mb-2">
                 <source src="../uploads/' . $vid . '" type="video/mp4">
@@ -67,9 +64,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
 ?>
 
 
-<!-- Edit Button -->
-
-<!-- Edit Modal -->
 <div class="modal fade" id="editPostModal<?= $post_id ?>" tabindex="-1" aria-labelledby="editPostModalLabel<?= $post_id ?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

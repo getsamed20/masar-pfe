@@ -60,7 +60,6 @@ $institution_id = $institution['institution_id'];
 <div class="container mt-4" style="padding-left: 150px; padding-right: 150px;">
 
     <div class="row">
-        <!-- LEFT SIDEBAR -->
         <div class="col-md-4">
     <div class="profile-info mb-4" style="height: 800px; background-color: #f8f9fa; position: relative;">
 
@@ -118,7 +117,6 @@ $institution_id = $institution['institution_id'];
             </div>
         </div>
 
-        <!-- MAIN CONTENT -->
         <div class="col-md-8">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div>
@@ -152,7 +150,6 @@ $institution_id = $institution['institution_id'];
     </div>
 </div>
 
-<!-- Add Post Modal -->
 <div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -175,7 +172,6 @@ $institution_id = $institution['institution_id'];
     </div>
 </div>
 
-<!-- Add Event Modal -->
 <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
@@ -206,7 +202,6 @@ $institution_id = $institution['institution_id'];
   </div>
 </div>
 
-<!-- Modal Challenges -->
 <div class="modal fade" id="addChallengeModal" tabindex="-1" aria-labelledby="addChallengeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">

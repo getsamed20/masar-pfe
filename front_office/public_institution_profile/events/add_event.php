@@ -7,7 +7,6 @@ if (!isset($_SESSION['email'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_title'])) {
-    // Sanitize input
     $event_title = mysqli_real_escape_string($conn, $_POST['event_title']);
     $event_description = mysqli_real_escape_string($conn, $_POST['event_description']);
     $event_date = mysqli_real_escape_string($conn, $_POST['event_date']);
@@ -15,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_title'])) {
     $event_location = mysqli_real_escape_string($conn, $_POST['event_location']);
     $event_type = mysqli_real_escape_string($conn, $_POST['event_type']);
 
-    // Get the logged-in user
     $email = $_SESSION['email'];
     $user_query = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
 
@@ -25,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_title'])) {
 
     $user = mysqli_fetch_assoc($user_query);
 
-    // Get the institution based on user
     $institution_query = mysqli_query($conn, "SELECT * FROM public_institutions WHERE user_id = '{$user['user_id']}'");
 
     if (!$institution_query || mysqli_num_rows($institution_query) === 0) {
@@ -35,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_title'])) {
     $institution = mysqli_fetch_assoc($institution_query);
     $institution_id = $institution['institution_id'];
 
-    // Upload cover image if provided
     $cover_path = '';
     if (!empty($_FILES['event_cover']['name'])) {
         $upload_dir = '../../uploads/event_covers/';
@@ -61,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_title'])) {
         }
     }
 
-    // Insert into DB
     $query = "INSERT INTO events (institution_id, title, description, location, date, time, event_type, cover_image, created_at)
               VALUES ('$institution_id', '$event_title', '$event_description', '$event_location', '$event_date', '$event_time', '$event_type', '$cover_path', NOW())";
 

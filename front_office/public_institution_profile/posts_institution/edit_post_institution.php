@@ -7,13 +7,11 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// Get current user
 $email = $_SESSION['email'];
 $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
 $user = mysqli_fetch_assoc($result);
 $user_id = $user['user_id'];
 
-// Get institution ID
 $result2 = mysqli_query($conn, "SELECT * FROM public_institutions WHERE user_id = $user_id");
 $institution = mysqli_fetch_assoc($result2);
 $institution_id = $institution['institution_id'];
@@ -22,18 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
     $post_id = intval($_POST['post_id']);
     $new_content = mysqli_real_escape_string($conn, $_POST['content']);
 
-    // Ensure the post belongs to the institution
     $check = mysqli_query($conn, "SELECT * FROM posts_institution WHERE post_id = $post_id AND institution_id = $institution_id");
     if (mysqli_num_rows($check) === 0) {
         die("Unauthorized access.");
     }
 
-    // Update content
     mysqli_query($conn, "UPDATE posts_institution SET content = '$new_content' WHERE post_id = $post_id");
 
-    // If new media is uploaded
     if (!empty($_FILES['media']['name'][0])) {
-        // Delete old media files from folder and DB
         $media_q = mysqli_query($conn, "SELECT file_path FROM media WHERE post_institution_id = $post_id");
         while ($media = mysqli_fetch_assoc($media_q)) {
             $file_path = "../../uploads/" . $media['file_path'];
@@ -43,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
         }
         mysqli_query($conn, "DELETE FROM media WHERE post_institution_id = $post_id");
 
-        // Re-upload new files
         $upload_dir = '../../uploads/';
         if (!file_exists($upload_dir)) {
             mkdir($upload_dir, 0777, true);

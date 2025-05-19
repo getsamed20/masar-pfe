@@ -9,13 +9,11 @@ if (!isset($_SESSION['startup_id'])) {
 
 $startup_id = $_SESSION['startup_id'];
 
-// Get and validate data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idea_id = mysqli_real_escape_string($conn, $_POST['idea_id']);
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
 
-    // Check if the idea belongs to the current startup
     $check = mysqli_query($conn, "SELECT * FROM ideas WHERE idea_id = '$idea_id' AND startup_id = '$startup_id'");
     if (mysqli_num_rows($check) == 0) {
         $_SESSION['error'] = "Unauthorized or idea not found.";
@@ -23,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Update the idea
     $update = mysqli_query($conn, "UPDATE ideas SET title = '$title', description = '$description' WHERE idea_id = '$idea_id'");
 
     if ($update) {

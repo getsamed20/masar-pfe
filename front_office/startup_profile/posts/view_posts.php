@@ -120,7 +120,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
     </form>
   </div>
 </div>
-
 <script>
 function setReportPostId(postId) {
     document.getElementById('report_post_id').value = postId;

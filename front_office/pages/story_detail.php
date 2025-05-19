@@ -1,4 +1,4 @@
-<?php
+<?php 
 include('../includes/db.php');
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -8,17 +8,14 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $story_id = intval($_GET['id']);
 
-$stmt = $conn->prepare("SELECT * FROM success_stories WHERE story_id = ?");
-$stmt->bind_param("i", $story_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$result = mysqli_query($conn, "SELECT * FROM success_stories WHERE story_id = $story_id");
 
-if ($result->num_rows === 0) {
+if (!$result || mysqli_num_rows($result) === 0) {
     echo "Story not found.";
     exit;
 }
 
-$story = $result->fetch_assoc();
+$story = mysqli_fetch_assoc($result);
 
 $title = htmlspecialchars($story['title']);
 $content = nl2br(htmlspecialchars($story['content']));

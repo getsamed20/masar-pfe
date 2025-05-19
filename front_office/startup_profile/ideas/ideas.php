@@ -20,7 +20,6 @@
                 <h5 class="mt-2"><?= htmlspecialchars($i['title']) ?></h5>
                 <p><?= nl2br(htmlspecialchars($i['description'])) ?></p>
 
-                <!-- Image Carousel -->
                 <?php if (!empty($images)) :
                     $carouselId = "carouselIdea" . $idea_id; ?>
                     <div id="<?= $carouselId ?>" class="carousel slide mb-3" data-bs-ride="carousel">
@@ -44,7 +43,6 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- Video Previews -->
                 <?php foreach ($videos as $vid) : ?>
                     <video controls class="w-100 rounded mb-2">
                         <source src="../uploads/<?= $vid ?>" type="video/mp4">
@@ -52,7 +50,6 @@
                     </video>
                 <?php endforeach; ?>
 
-                <!-- Actions -->
                 <div class="mt-3 d-flex justify-content-end gap-2">
                     <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editIdeaModal<?= $idea_id ?>">Edit</button>
                     <a href="ideas/delete_idea.php?id=idea_<?= $idea_id ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this idea?')">Delete</a>
@@ -60,7 +57,6 @@
             </div>
         </div>
 
-        <!-- Edit Modal -->
         <div class="modal fade" id="editIdeaModal<?= $idea_id ?>" tabindex="-1" aria-labelledby="editIdeaModalLabel<?= $idea_id ?>" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

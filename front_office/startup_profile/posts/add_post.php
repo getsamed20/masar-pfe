@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($_FILES['media']['error'][$key] === 0) {
             $original_name = basename($_FILES['media']['name'][$key]);
             $file_tmp = $_FILES['media']['tmp_name'][$key];
-            $file_type = explode('/', $_FILES['media']['type'][$key])[0]; // image or video
+            $file_type = explode('/', $_FILES['media']['type'][$key])[0]; 
 
             $new_name = uniqid() . '_' . $original_name;
             $target_path = $upload_dir . $new_name;

@@ -414,6 +414,7 @@ if (isset($_SESSION['email'])) {
 </div>
 
 <div class="modal fade" id="loginModal" tabindex="-1">
+>>>>>>> 518d23d3d3dbfd0089249a723dc4a10c51786cb6
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-warning text-dark">

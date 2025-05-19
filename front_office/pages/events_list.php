@@ -3,16 +3,13 @@ session_start();
 include('../includes/db.php');
 include('../components/navbar.php');
 
-// Default to only showing future events
 $today = date('Y-m-d');
 
-// Collect filters
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $date_filter = isset($_GET['date']) ? trim($_GET['date']) : '';
 $show_past = isset($_GET['show_past']) && $_GET['show_past'] === '1';
 
-// Build query
 $query = "SELECT * FROM events WHERE 1=1";
 
 if (!empty($search)) {
@@ -50,7 +47,7 @@ $events_query = mysqli_query($conn, $query);
 <div class="container mt-5">
     <h1 class="text-center mb-4">All Events</h1>
 
-    <!-- Filters -->
+    <!-- filters -->
     <form method="GET" action="" class="row g-3 mb-4">
         <div class="col-md-3">
             <input type="text" name="search" class="form-control" placeholder="Search events..." value="<?php echo htmlspecialchars($search); ?>">
@@ -78,7 +75,7 @@ $events_query = mysqli_query($conn, $query);
         </div>
     </form>
 
-    <!-- Event Cards -->
+    <!-- Events cart -->
     <?php if (mysqli_num_rows($events_query) > 0): ?>
         <div class="row">
             <?php while ($event = mysqli_fetch_assoc($events_query)): ?>
