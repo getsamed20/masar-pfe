@@ -1,6 +1,6 @@
 <style>
   .services-section {
-    background-color: #F2F6FF; /* new background */
+    background-color: #F2F6FF;
   }
 
   .service-card {
@@ -24,9 +24,9 @@
     height: 50px;
   }
 
-  /* Responsive adjustments */
+
   @media (max-width: 991.98px) {
-    /* For md and below: force 2 cards per row */
+
     .col-md-6 {
       max-width: 50% !important;
       flex: 0 0 50% !important;
@@ -34,15 +34,14 @@
   }
 
   @media (max-width: 575.98px) {
-    /* For small and xs: 1 card per row */
     .col-12 {
       max-width: 100% !important;
       flex: 0 0 100% !important;
     }
 
     .service-card {
-      width: 90vw; /* responsive width on small */
-      height: auto; /* let height adjust */
+      width: 90vw; 
+      height: auto;
     }
   }
 </style>

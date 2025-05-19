@@ -38,6 +38,10 @@ while ($row = mysqli_fetch_assoc($result_users)) {
     #roleFilter {
       max-width: 200px;
     }
+
+    body{
+      background-color:#F2F6FF;
+    }
   </style>
 </head>
 <body>
@@ -76,7 +80,6 @@ while ($row = mysqli_fetch_assoc($result_users)) {
 </div>
 
 
-  <!-- User Table -->
   <table id="userTable" class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -114,7 +117,6 @@ while ($row = mysqli_fetch_assoc($result_users)) {
   $(document).ready(function () {
     const table = $('#userTable').DataTable();
 
-    // Filter by role
     $('#roleFilter').on('change', function () {
       const role = this.value;
       if (role) {
@@ -124,7 +126,6 @@ while ($row = mysqli_fetch_assoc($result_users)) {
       }
     });
 
-    // Filter by status (checkbox)
     const statusColumnIndex = 2;
     function updateStatusFilter() {
       let filters = [];
@@ -137,7 +138,7 @@ while ($row = mysqli_fetch_assoc($result_users)) {
         const regex = '^(' + filters.join('|') + ')$';
         table.column(statusColumnIndex).search(regex, true, false).draw();
       } else {
-        table.column(statusColumnIndex).search('ImpossibleToMatchString').draw(); // Hide all
+        table.column(statusColumnIndex).search('ImpossibleToMatchString').draw(); 
       }
     }
 

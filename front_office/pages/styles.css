@@ -1,4 +1,3 @@
-/* Global Styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -6,7 +5,6 @@ body, html {
     font-family: 'IBM Plex Sans', sans-serif;
 }
 
-/* Header Styles */
 .header-container {
     background-image: url('masar.png');
     background-size: cover;
@@ -95,7 +93,6 @@ body, html {
     margin: 0 15px;
 }
 
-/* Services Section */
 .service-card {
     background: white;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
@@ -134,7 +131,6 @@ body, html {
     color: black;
 }
 
-/* Impact Section */
 .impact-section {
     padding: 3rem 0;
     text-align: center;
@@ -227,7 +223,6 @@ body, html {
     height: 450px;
 }
 
-/* FAQ Section */
 .faq-container {
     display: flex;
     max-width: 1200px;
@@ -378,7 +373,6 @@ body, html {
     font-size: 20px;
 }
 
-/* Join Section */
 .join-section {
     padding: 60px 20px;
     text-align: center;
@@ -490,7 +484,6 @@ body, html {
     height: 20px;
 }
 
-/* Footer Styles */
 .footer {
     background-color: #0C1BA3;
     color: white;

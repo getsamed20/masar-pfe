@@ -11,7 +11,6 @@
       </button>
 
       <div class="impact-cards-wrapper">
-        <!-- Cards will be inserted here by JavaScript -->
       </div>
 
       <button class="carousel-arrow right-arrow" onclick="impactNext()">
@@ -126,7 +125,6 @@
     width: 100%;
   }
 
-  /* Mobile styles - single card */
   @media (max-width: 992px) {
     .impact-subtitle {
       width: 80%;
@@ -181,7 +179,6 @@
     }
   }
 
-  /* Adjustments for medium screens */
   @media (max-width: 1200px) and (min-width: 993px) {
     .impact-cards-wrapper {
       max-width: 900px;
@@ -215,7 +212,6 @@
       wrapper.innerHTML = '';
 
       if (isMobile) {
-        // Mobile - single card
         const card = document.createElement('div');
         card.className = 'impact-card active';
         card.innerHTML = `
@@ -224,7 +220,6 @@
         `;
         wrapper.appendChild(card);
       } else {
-        // Desktop - three cards (prev, current, next)
         const prev = (impactIndex - 1 + impactItems.length) % impactItems.length;
         const next = (impactIndex + 1) % impactItems.length;
 
@@ -261,7 +256,6 @@
       renderImpactCards();
     };
 
-    // Add touch support for mobile
     let touchStartX = 0;
     let touchEndX = 0;
     
@@ -277,10 +271,10 @@
     function handleSwipe() {
       if (isMobile) {
         if (touchEndX < touchStartX - 50) {
-          impactNext(); // Swipe left
+          impactNext(); 
         }
         if (touchEndX > touchStartX + 50) {
-          impactPrev(); // Swipe right
+          impactPrev(); 
         }
       }
     }
@@ -289,7 +283,6 @@
       renderImpactCards();
       window.addEventListener('resize', handleResize);
       
-      // Add touch event listeners
       const carousel = document.querySelector('.impact-cards-wrapper');
       carousel.addEventListener('touchstart', handleTouchStart, false);
       carousel.addEventListener('touchend', handleTouchEnd, false);

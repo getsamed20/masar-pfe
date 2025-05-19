@@ -2,7 +2,7 @@
 
 include('../includes/db.php');
 
-// Fetch startups
+
 $query = "SELECT * FROM startups ORDER BY startup_name ASC";
 $result = mysqli_query($conn, $query);
 $startups = [];
@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             
         }
        .startup-card {
-            flex: 0 0 calc((100% - 40px) / 3); /* 20px gap between 3 cards = 40px total */
+            flex: 0 0 calc((100% - 40px) / 3); 
             margin-right: 20px;
             margin-bottom:20px
            ;
@@ -189,7 +189,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     };
 
     const updatePosition = () => {
-        const cardWidth = container.querySelector('.startup-card').offsetWidth + 20; // 20 = padding
+        const cardWidth = container.querySelector('.startup-card').offsetWidth + 20;
         container.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
         updateArrows();
     };

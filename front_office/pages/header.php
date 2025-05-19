@@ -51,7 +51,7 @@ if (isset($_SESSION['email'])) {
       overflow: hidden;
     }
 
-/* Mobile override background */
+
 @media (max-width: 768px) {
   .header-container {
     background-image: url('pg2.png');
@@ -66,7 +66,7 @@ if (isset($_SESSION['email'])) {
   z-index: 10;
 }
 
-/* Push content down inside the header */
+
 .header-content {
   padding-top: 300px;
   max-width: 50%;

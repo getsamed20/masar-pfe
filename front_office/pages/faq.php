@@ -21,7 +21,7 @@
             margin-bottom: 50px;
             gap: 30px;
             align-items: stretch;
-            flex-direction: column; /* Mobile first - column layout */
+            flex-direction: column;
         }
         
         .faq-left {
@@ -32,7 +32,7 @@
         }
         
         .faq-right {
-            width: 100%; /* Full width on mobile */
+            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -40,7 +40,7 @@
         
         .faq-title {
             text-align: center;
-            font-size: 28px; /* Smaller on mobile */
+            font-size: 28px;
             font-weight: 700;
             color: #0C1BA3;
             margin-bottom: 30px;
@@ -50,7 +50,7 @@
             background-color: #0C1BA3;
             color: white;
             border-radius: 10px;
-            padding: 15px; /* Smaller padding on mobile */
+            padding: 15px;
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -68,12 +68,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 18px; /* Smaller font on mobile */
+            font-size: 18px;
             font-weight: 600;
         }
         
         .faq-answer {
-            font-size: 16px; /* Smaller font on mobile */
+            font-size: 16px;
             font-weight: 400;
             margin-top: 15px;
             display: none;
@@ -87,7 +87,7 @@
         .contact-box {
             background-color: #0C1BA3;
             border-radius: 10px;
-            padding: 20px; /* Smaller padding on mobile */
+            padding: 20px;*
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
             text-align: center;
             flex: 1;
@@ -96,7 +96,7 @@
         }
         
         .contact-icon {
-            font-size: 30px; /* Smaller icon on mobile */
+            font-size: 30px;
             color: white;
             margin-bottom: 10px;
         }
@@ -120,8 +120,8 @@
             color: #0C1BA3;
             border: none;
             border-radius: 5px;
-            padding: 10px 20px; /* Smaller button on mobile */
-            font-size: 14px; /* Smaller font on mobile */
+            padding: 10px 20px; 
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -135,7 +135,7 @@
         .call-box {
             background-color: #02FA72;
             border-radius: 10px;
-            padding: 20px; /* Smaller padding on mobile */
+            padding: 20px; 
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
             text-align: center;
             flex: 1;
@@ -145,7 +145,7 @@
         }
         
         .call-title {
-            font-size: 20px; /* Smaller font on mobile */
+            font-size: 20px; 
             font-weight: 700;
             color: #0C1BA3;
             margin-bottom: 10px;
@@ -156,23 +156,22 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            font-size: 20px; /* Smaller font on mobile */
+            font-size: 20px; 
             font-weight: 700;
             color: #0C1BA3;
         }
         
         .phone-icon {
-            font-size: 16px; /* Smaller icon on mobile */
+            font-size: 16px; 
         }
 
-        /* Desktop styles */
         @media (min-width: 992px) {
             .faq-container {
-                flex-direction: row; /* Side by side on desktop */
+                flex-direction: row; 
             }
             
             .faq-right {
-                width: 350px; /* Fixed width on desktop */
+                width: 350px; 
             }
             
             .faq-title {
@@ -222,10 +221,9 @@
             }
         }
 
-        /* Tablet styles */
         @media (max-width: 991px) and (min-width: 768px) {
             .faq-right {
-                flex-direction: row; /* Side by side contact boxes on tablet */
+                flex-direction: row; 
             }
             
             .contact-box,
@@ -319,7 +317,6 @@
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
                 
-                // Close all other items
                 document.querySelectorAll('.faq-item').forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
@@ -327,7 +324,6 @@
                     }
                 });
                 
-                // Toggle current item
                 if (isActive) {
                     item.classList.remove('active');
                     icon.className = 'fas fa-plus';

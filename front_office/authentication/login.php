@@ -13,10 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        // ✅ Verify hashed password
         if (password_verify($password, $user['password'])) {
 
-            // ✅ Check if the user is suspended (inactive)
             if ($user['status'] != 'active') {
                 $error = "Your account is suspended. Please contact support.";
             } else {
@@ -152,7 +150,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>

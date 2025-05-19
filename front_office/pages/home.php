@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Your head content -->
 </head>
 <body style="background-color: #F2F6FF;">
 <?php include('header.php'); ?>
@@ -9,6 +8,7 @@
 <?php include('startup-cards.php'); ?>
 
 <?php include('impact.php'); ?>
+<?php include('stories.php'); ?>
 <?php include('faq.php'); ?>
 <?php include('join.php'); ?>
 

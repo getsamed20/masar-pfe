@@ -18,7 +18,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
   <h2>Publish a New Success Story</h2>
 
-  <!-- Form to submit new story -->
   <form action="submit_success_story.php" method="POST" enctype="multipart/form-data" class="mb-5">
     <input type="text" name="title" class="form-control mb-2" placeholder="Story Title" required>
     <textarea name="content" class="form-control mb-2" rows="6" placeholder="Story Content" required></textarea>
@@ -29,7 +28,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     <button type="submit" class="btn btn-success">Publish</button>
   </form>
 
-  <!-- Include the stories viewer -->
   <h3 class="mb-3">Published Stories</h3>
   <?php include 'success_stories.php'; ?>
 

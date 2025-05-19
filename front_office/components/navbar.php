@@ -205,7 +205,6 @@ if (isset($_SESSION['email'])) {
     align-items: center;
   }
 
-  /* Custom right-side mobile menu */
   .offcanvas-custom {
     position: fixed;
     top: 0;
@@ -263,7 +262,6 @@ if (isset($_SESSION['email'])) {
     right: 0;
   }
 
-  /* Custom hamburger menu */
   .custom-toggler {
     width: 30px;
     height: 24px;
@@ -324,7 +322,6 @@ if (isset($_SESSION['email'])) {
     left: 50%;
   }
 
-  /* Show hamburger only on mobile */
   @media (max-width: 991.98px) {
     .custom-toggler {
       display: block;
@@ -335,7 +332,6 @@ if (isset($_SESSION['email'])) {
     }
   }
 
-  /* Hide offcanvas on desktop */
   @media (min-width: 992px) {
     .offcanvas-custom {
       display: none !important;
@@ -393,7 +389,6 @@ if (isset($_SESSION['email'])) {
   </div>
 </nav>
 
-<!-- Mobile offcanvas menu -->
 <div class="offcanvas-custom" id="offcanvasMenu">
   <button class="close-btn" id="closeMenu">&times;</button>
   <ul class="navbar-nav">
@@ -418,7 +413,6 @@ if (isset($_SESSION['email'])) {
   </ul>
 </div>
 
-<!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -439,21 +433,18 @@ if (isset($_SESSION['email'])) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Toggle dropdown
   const profileToggle = document.getElementById('profileToggle');
   const dropdownMenu = document.getElementById('profileDropdownMenu');
   profileToggle?.addEventListener('click', () => {
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
   });
 
-  // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.profile-container') && dropdownMenu) {
       dropdownMenu.style.display = 'none';
     }
   });
 
-  // Mobile menu open/close
   const menuToggle = document.getElementById('menuToggle');
   const offcanvasMenu = document.getElementById('offcanvasMenu');
   const closeMenu = document.getElementById('closeMenu');

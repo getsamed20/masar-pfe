@@ -8,7 +8,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $story_id = intval($_GET['id']);
 
-// Fetch story
 $stmt = $conn->prepare("SELECT * FROM success_stories WHERE story_id = ?");
 $stmt->bind_param("i", $story_id);
 $stmt->execute();
@@ -29,11 +28,10 @@ echo "<div class='container py-4'>";
 echo "<h2>$title</h2>";
 echo "<p>$content</p>";
 
-// Fetch media
 $mediaResult = mysqli_query($conn, "SELECT * FROM media WHERE story_id = $story_id");
 
 while ($item = mysqli_fetch_assoc($mediaResult)) {
-    $media_path = '../back_office/' . $item['file_path'];
+    $media_path = '../../back_office/' . $item['file_path'];
 
     if ($item['media_type'] === 'image') {
         echo '<img src="' . htmlspecialchars($media_path) . '" class="img-fluid rounded mb-3" style="max-width: 100%;">';

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join Section</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,500;0,600;0,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@700&display=swap" rel="stylesheet">
 
@@ -133,7 +132,6 @@
       height: 18px;
     }
 
-    /* Desktop styles */
     @media (min-width: 768px) {
       .join-section {
         padding: 60px 20px;

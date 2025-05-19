@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <title>Footer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Bootstrap 5 CDN -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
-  <!-- IBM Plex Sans from Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap"
     rel="stylesheet"
@@ -109,7 +107,6 @@
   <footer class="footer">
     <div class="container">
       <div class="row gy-4">
-        <!-- Logo Section -->
         <div class="col-12 col-md-4 text-center text-md-start">
           <a href="../pages/home.php">
             <img src="logo.png" alt="Masar Logo" class="footer-logo" />
@@ -117,7 +114,6 @@
           <div class="tagline">Securing Every Path</div>
         </div>
 
-        <!-- Info Links -->
         <div class="col-6 col-md-2">
           <h6>INFO</h6>
           <ul>
@@ -128,7 +124,6 @@
           </ul>
         </div>
 
-        <!-- Community Links -->
         <div class="col-6 col-md-3">
           <h6>COMMUNITY</h6>
           <ul>
@@ -139,7 +134,6 @@
           </ul>
         </div>
 
-        <!-- Social Icons -->
         <div class="col-12 col-md-3 social-icons">
           <a href="#"><img src="facebook.png" alt="Facebook" /></a>
           <a href="#"><img src="whatsapp.png" alt="WhatsApp" /></a>
@@ -148,7 +142,6 @@
         </div>
       </div>
 
-      <!-- Copyright -->
       <div class="row mt-4">
         <div class="col-12">
           <div class="copyright">© 2025. ALL RIGHTS RESERVED.</div>
