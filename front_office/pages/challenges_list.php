@@ -71,7 +71,6 @@ $categories = [
 <div class="container mt-5">
     <h1 class="mb-4">List of Challenges</h1>
 
-    <!-- Filters Form -->
     <form method="GET" class="row g-3 mb-4">
         <div class="col-md-3">
             <input type="text" name="search" class="form-control" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>">

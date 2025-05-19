@@ -74,7 +74,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
         echo '</div>';
     }
 
-    // Videos
     foreach ($videos as $vid) {
         echo '<video controls class="w-100 rounded mb-2">
                 <source src="../uploads/' . $vid . '" type="video/mp4">
@@ -82,7 +81,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
               </video>';
     }
 
-    // Report Button
     echo '
     <button class="btn btn-outline-danger btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#reportModalInstitution" onclick="setInstitutionPostId(' . $post_institution_id . ')">
         Report
@@ -94,7 +92,6 @@ while ($p = mysqli_fetch_assoc($posts)) {
 echo '</div>';
 ?>
 
-<!-- Report Modal (shared) -->
 <div class="modal fade" id="reportModalInstitution" tabindex="-1" aria-labelledby="reportModalLabelInst" aria-hidden="true">
   <div class="modal-dialog">
     <form method="POST" onsubmit="return confirm('Are you sure you want to report this institution post?');">

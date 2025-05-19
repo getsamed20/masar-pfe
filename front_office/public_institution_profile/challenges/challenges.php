@@ -1,8 +1,4 @@
 <?php 
-// challenges.php
-
-// Make sure $conn and $institution are defined before including this file
-
 $selectedChallengeId = isset($_GET['challenge_id']) ? $_GET['challenge_id'] : null;
 
 $challenges = mysqli_query($conn, "SELECT * FROM challenges WHERE institution_id = '{$institution['institution_id']}' ORDER BY created_at DESC");
@@ -22,12 +18,10 @@ $challenges = mysqli_query($conn, "SELECT * FROM challenges WHERE institution_id
                     <p><?php echo nl2br(htmlspecialchars($challenge['description'])); ?></p>
                     <p><strong>Deadline:</strong> <?php echo htmlspecialchars($challenge['deadline']); ?></p>
 
-                    <!-- Optional: Show any extra fields, like attachments -->
                     <?php if (!empty($challenge['file_attachment'])): ?>
                         <a href="uploads/<?php echo htmlspecialchars($challenge['file_attachment']); ?>" download>Download Attachment</a><br>
                     <?php endif; ?>
 
-                    <!-- Link to collapse/hide details -->
                     <a href="public_institution_profile.php#challenges-section">Hide</a>
 
                 <?php else: ?>

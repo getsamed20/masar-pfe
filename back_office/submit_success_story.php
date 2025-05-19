@@ -6,16 +6,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: admin_login.php");
     exit();
 }
-// Sanitize input
 $title = mysqli_real_escape_string($conn, $_POST['title']);
 $content = mysqli_real_escape_string($conn, $_POST['content']);
 
-// 1. Insert the story
 $insertStorySQL = "INSERT INTO success_stories (title, content) VALUES ('$title', '$content')";
 mysqli_query($conn, $insertStorySQL);
 $story_id = mysqli_insert_id($conn);
 
-// 2. Handle media files
 $mediaFiles = $_FILES['media_files'];
 $uploadDir = 'uploads/success_stories/';
 

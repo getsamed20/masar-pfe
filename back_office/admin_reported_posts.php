@@ -7,16 +7,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Handle reason filter
 $reason_filter = isset($_GET['reason']) ? mysqli_real_escape_string($conn, $_GET['reason']) : '';
 
-// Build WHERE clause
 $where = "WHERE 1";
 if ($reason_filter !== '') {
     $where .= " AND r.reason = '$reason_filter'";
 }
 
-// Query both startup and institution posts
 $query = "
     SELECT 
         r.report_id,
@@ -59,6 +56,8 @@ $reports = mysqli_query($conn, $query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light p-4">
+    <?php include('admin_navbar.php'); ?>
+
 <div class="container">
     <h2 class="mb-4">Reported Posts</h2>
 
@@ -119,7 +118,6 @@ $reports = mysqli_query($conn, $query);
                 </div>
             </div>
 
-            <!-- View Modal -->
             <div class="modal fade" id="viewPostModal<?= $r['report_id'] ?>" tabindex="-1" aria-labelledby="viewPostModalLabel<?= $r['report_id'] ?>" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
                     <div class="modal-content">
@@ -129,7 +127,6 @@ $reports = mysqli_query($conn, $query);
                         </div>
                         <div class="modal-body">
                             <p><?= nl2br(htmlspecialchars($r['content'])) ?></p>
-                                                <!-- Media -->
                     <?php
                     $post_id = $r['post_id'];
                     $source = $r['source'];

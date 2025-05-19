@@ -2,7 +2,6 @@
 session_start();
 include('../includes/db.php');
 
-// Handle search
 $search = '';
 if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
     $search = mysqli_real_escape_string($conn, trim($_GET['search']));
