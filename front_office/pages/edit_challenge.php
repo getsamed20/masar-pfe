@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $relativePath = $mediaRelativeDir . $uniqueName;
 
                 if (move_uploaded_file($tmpPath, $destination)) {
-                    $mediaType = mime_content_type($destination); // Better than explode()
+                    $mediaType = mime_content_type($destination);
 
                     $insertMedia = "
                         INSERT INTO media (challenge_id, media_type, file_path, created_at)

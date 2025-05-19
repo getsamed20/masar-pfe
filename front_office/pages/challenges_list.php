@@ -7,7 +7,7 @@ mysqli_query($conn, "UPDATE challenges SET status = 'closed' WHERE deadline < '$
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
-$status = isset($_GET['status']) ? trim($_GET['status']) : 'open'; // default = open
+$status = isset($_GET['status']) ? trim($_GET['status']) : 'open'; 
 $start_date = isset($_GET['start_date']) ? trim($_GET['start_date']) : '';
 $end_date = isset($_GET['end_date']) ? trim($_GET['end_date']) : '';
 
@@ -71,7 +71,6 @@ $categories = [
 <div class="container mt-5">
     <h1 class="mb-4">List of Challenges</h1>
 
-    <!-- Filters Form -->
     <form method="GET" class="row g-3 mb-4">
         <div class="col-md-3">
             <input type="text" name="search" class="form-control" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>">

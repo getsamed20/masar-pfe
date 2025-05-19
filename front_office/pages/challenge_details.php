@@ -6,7 +6,6 @@ include '../includes/db.php';
 include '../components/navbar.php';
 
 
-//echo '<pre>'; print_r($_SESSION); echo '</pre>';
 
 $role = $_SESSION['role'] ?? null;
 $institution_id = $_SESSION['institution_id'] ?? null;
@@ -150,7 +149,6 @@ $challenge = mysqli_fetch_assoc($getChallenge);
 </div>
 
 <?php if ($role === 'institution' && $institution_id == $challenge['institution_id']): ?>
-<!-- Edit Challenge Modal -->
 <div class="modal fade" id="editChallengeModal<?= $challenge['challenge_id'] ?>" tabindex="-1" aria-labelledby="editChallengeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

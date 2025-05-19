@@ -47,7 +47,6 @@ $events_query = mysqli_query($conn, $query);
 <div class="container mt-5">
     <h1 class="text-center mb-4">All Events</h1>
 
-    <!-- filters -->
     <form method="GET" action="" class="row g-3 mb-4">
         <div class="col-md-3">
             <input type="text" name="search" class="form-control" placeholder="Search events..." value="<?php echo htmlspecialchars($search); ?>">
@@ -75,7 +74,6 @@ $events_query = mysqli_query($conn, $query);
         </div>
     </form>
 
-    <!-- Events cart -->
     <?php if (mysqli_num_rows($events_query) > 0): ?>
         <div class="row">
             <?php while ($event = mysqli_fetch_assoc($events_query)): ?>
