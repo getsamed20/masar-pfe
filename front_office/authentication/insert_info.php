@@ -23,7 +23,6 @@ if (mysqli_num_rows($check) > 0) {
     exit();
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contact_email = $_POST['contact_email'];
     $phone = $_POST['phone'];

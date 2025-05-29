@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_title'])) {
 
     $cover_path = '';
     if (!empty($_FILES['event_cover']['name'])) {
-        $upload_dir = '../../uploads/event_covers/';
+        $upload_dir = '../uploads/event_covers/';
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }

@@ -54,7 +54,7 @@ while ($p = mysqli_fetch_assoc($posts)) {
 
     echo '<div class="mt-3 d-flex justify-content-end gap-2">';
     echo '<button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPostModal' . $post_id . '">Edit</button>';
-    echo '<a href="posts_institution/delete_post_institution.php?id=post_' . $post_id . '" class="btn btn-sm btn-outline-danger" onclick="return confirm(\'Are you sure you want to delete this post?\')">Delete</a>';
+echo '<a href="posts_institution/delete_post_institution.php?post_id=' . $post_id . '" class="btn btn-sm btn-outline-danger" onclick="return confirm(\'Are you sure you want to delete this post?\')">Delete</a>';
     echo '</div>';
 
     echo '</div></div>';
