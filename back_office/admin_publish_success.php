@@ -10,6 +10,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php include('admin_navbar.php'); ?>
+
   <meta charset="UTF-8">
   <title>Publish Success Story</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
