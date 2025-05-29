@@ -19,8 +19,8 @@ $institution_id = $institution['institution_id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = mysqli_real_escape_string($conn, $_POST['content']);
 
-    mysqli_query($conn, "INSERT INTO posts_institution (institution_id, content, title, created_at) 
-                         VALUES ('$institution_id', '$content', '$title', NOW())");
+    mysqli_query($conn, "INSERT INTO posts_institution (institution_id, content, created_at) 
+                         VALUES ('$institution_id', '$content', NOW())");
     $post_id = mysqli_insert_id($conn);
 
     $upload_dir = '../../uploads/';

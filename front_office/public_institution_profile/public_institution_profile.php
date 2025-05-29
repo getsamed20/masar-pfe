@@ -57,7 +57,7 @@ $institution_id = $institution['institution_id'];
 <?php include('../components/navbar.php'); ?>
 
 
-<div class="container mt-4 ps-lg-5 pe-lg-5 ps-xl-5 pe-xl-5" >
+<div class="container mt-4" style="padding-left: 150px; padding-right: 150px;">
 
     <div class="row">
         <div class="col-md-4">

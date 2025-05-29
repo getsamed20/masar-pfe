@@ -61,7 +61,7 @@ $result = mysqli_query($conn, $query);
                     <div class="card-body flex-grow-1 d-flex flex-column text-center px-3">
                         <h5 class="card-title mt-2"><?php echo htmlspecialchars($startup['startup_name']); ?></h5>
                         <p class="card-text flex-grow-1">
-                        <?php echo nl2br(htmlspecialchars(mb_strimwidth((string)$startup['about_section'], 0, 100, '...', 'UTF-8'))); ?>
+                            <?php echo nl2br(htmlspecialchars(mb_strimwidth($startup['about_section'], 0, 100, '...'))); ?>
                         </p>
                         <div class="mt-auto">
                             <a href="view_startup_profile.php?id=<?php echo $startup['user_id']; ?>&type=startup" class="btn btn-outline-primary">View Profile</a>

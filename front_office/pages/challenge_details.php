@@ -6,6 +6,7 @@ include '../includes/db.php';
 include '../components/navbar.php';
 
 
+//echo '<pre>'; print_r($_SESSION); echo '</pre>';
 
 $role = $_SESSION['role'] ?? null;
 $institution_id = $_SESSION['institution_id'] ?? null;

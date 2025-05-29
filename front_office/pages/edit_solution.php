@@ -27,7 +27,7 @@ if (isset($_POST['update_solution'])) {
     $title = mysqli_real_escape_string($conn, $_POST['proposal_title']);
     $description = mysqli_real_escape_string($conn, $_POST['proposal_description']);
 
-    $filePath = $solution['file_attachment'];
+    $filePath = $solution['file_attachment']; // Keep current file by default
     if (isset($_FILES['file_attachment']) && $_FILES['file_attachment']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../uploads/solutions/';
         $fileName = basename($_FILES['file_attachment']['name']);

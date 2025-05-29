@@ -3,7 +3,7 @@ $events = mysqli_query($conn, "SELECT * FROM events WHERE institution_id = '{$in
 while ($event = mysqli_fetch_assoc($events)): ?>
   <div class="card mb-4 shadow-sm">
     <?php if (!empty($event['cover_image'])): ?>
-      <img src="<?php echo htmlspecialchars($event['cover_image']); ?>" class="card-img-top" style="max-height: 300px; object-fit: cover;" alt="Event Cover">
+      <img src="../<?php echo htmlspecialchars($event['cover_image']); ?>" class="card-img-top" style="max-height: 300px; object-fit: cover;" alt="Event Cover">
     <?php endif; ?>
     <div class="card-body">
       <h5 class="card-title"><?php echo htmlspecialchars($event['title']); ?></h5>

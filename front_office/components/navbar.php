@@ -344,7 +344,7 @@ if (isset($_SESSION['email'])) {
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
     <a class="navbar-brand" href="../pages/home.php">
-      <img src="../components/logo2.png" alt="Masar Platform Logo" />
+      <img src="logo2.png" alt="Masar Platform Logo" />
     </a>
 
     <button class="custom-toggler" type="button" id="menuToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -367,7 +367,7 @@ if (isset($_SESSION['email'])) {
       <ul class="navbar-nav align-items-center">
         <li class="nav-item message-item">
           <a class="nav-link p-0" href="<?php echo $loggedIn ? $messagesLink : '#'; ?>" <?php if (!$loggedIn) echo 'data-bs-toggle="modal" data-bs-target="#loginModal"'; ?>>
-            <img src="../components/chats.png" class="message-icon" alt="Messages" />
+            <img src="chats.png" class="message-icon" alt="Messages" />
             <?php if ($newMessages): ?><span class="notification-badge"></span><?php endif; ?>
           </a>
         </li>

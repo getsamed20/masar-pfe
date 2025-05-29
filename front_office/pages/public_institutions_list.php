@@ -60,7 +60,7 @@ $result = mysqli_query($conn, $query);
 
                         <div class="card-body text-center mt-5 pt-4 px-3">
                             <h5 class="card-title"><?php echo htmlspecialchars($institution['institution_name']); ?></h5>
-                            <p class="card-text"><?php echo nl2br(htmlspecialchars(mb_strimwidth((string)$institution['description'], 0, 100, '...'))); ?></p>
+                            <p class="card-text"><?php echo nl2br(htmlspecialchars(mb_strimwidth($institution['description'], 0, 100, '...'))); ?></p>
                             <a href="view_institution_profile.php?id=<?php echo $institution['user_id']; ?>&type=institution" class="btn btn-outline-primary">View Profile</a>
                         </div>
                     </div>

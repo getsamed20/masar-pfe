@@ -153,11 +153,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <img src="../uploads/<?php echo htmlspecialchars($startup['logo']); ?>" alt="Logo">
                             <?php endif; ?>
                         </div>
-                        <div class="startup-name"><?php echo htmlspecialchars((string)$startup['startup_name']); ?></div>
-                        <div class="startup-about"><?php echo nl2br(htmlspecialchars((string)$startup['about_section'])); ?></div>
+                        <div class="startup-name"><?php echo htmlspecialchars($startup['startup_name']); ?></div>
+                        <div class="startup-about"><?php echo nl2br(htmlspecialchars($startup['about_section'])); ?></div>
                         <div class="card-buttons">
                             <a href="<?php echo isset($_SESSION['user_id']) ? '..\chat\chat.php' : '#'; ?>" <?php if (!isset($_SESSION['user_id'])) echo 'data-bs-toggle="modal" data-bs-target="#loginModal"'; ?>>
-                                <img src="../components/chat.png" alt="Message"> Message
+                                <img src="messages.png" alt="Message"> Message
                             </a>
                             <a href="view_startup_profile.php?id=<?php echo $startup['user_id']; ?>&type=startup">
                                 <img src="profile.png" alt="Profile"> View Profile

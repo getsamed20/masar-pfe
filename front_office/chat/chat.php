@@ -440,18 +440,15 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                             <div class="message-time">
                                 <?= date('M d, H:i', strtotime($msg['sent_at'])) ?>
                             </div>
-                            <?php
-                                $lastSeenQuery = mysqli_query($conn, "
-                                    SELECT message_id FROM messages 
-                                    WHERE sender_id = $currentUserId AND receiver_id = $selectedId AND seen = 1 
-                                    ORDER BY message_id DESC LIMIT 1
-                                ");
-                                $lastSeenMessage = mysqli_fetch_assoc($lastSeenQuery);
-                                $lastSeenMessageId = $lastSeenMessage['message_id'] ?? null;
-                            ?>
-
-                            <?php if ($isSent && $msg['message_id'] == $lastSeenMessageId): ?>
-                                <div class='message-seen'>Seen</div>
+                            <?php if ($isSent && $msg['message_id'] == $lastMessage['message_id']): ?>
+                                <?php
+                                $seen_check = mysqli_query($conn, "SELECT seen FROM messages 
+                                    WHERE message_id = {$msg['message_id']} AND receiver_id = $selectedId AND sender_id = $currentUserId");
+                                $seen_value = mysqli_fetch_assoc($seen_check)['seen'] ?? 0;
+                                if ($seen_value == 1) {
+                                    echo "<div class='message-seen'>Seen</div>";
+                                }
+                                ?>
                             <?php endif; ?>
                         </div>
                     </div>
