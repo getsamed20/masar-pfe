@@ -15,7 +15,7 @@ $selectedType = $_GET['type'] ?? null;
 $contacts = [];
 
 $contact_query = "
-    SELECT 
+    SELECT
         IF(sender_id = $currentUserId, receiver_id, sender_id) AS contact_id,
         MAX(sent_at) AS last_message_time
     FROM messages
@@ -354,10 +354,10 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
     <div class="contacts-sidebar">
         <img src="arrow-icon.png" alt="Back" class="back-arrow" onclick="history.back()">
         <div class="recent-messages">Recent Messages</div>
-        
+
         <div style="position: relative;">
             <?php foreach ($contacts as $contact): ?>
-                <div class="contact-item <?= ($selectedId == $contact['id']) ? 'active' : '' ?>" 
+                <div class="contact-item <?= ($selectedId == $contact['id']) ? 'active' : '' ?>"
                      onclick="window.location.href='chat.php?id=<?= $contact['id'] ?>&type=<?= $contact['type'] ?>'">
                     <img src="../uploads/<?= htmlspecialchars($contact['logo']) ?>" alt="<?= htmlspecialchars($contact['name']) ?>" class="contact-avatar">
                     <div class="contact-info">
@@ -365,13 +365,13 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                         <div class="contact-role"><?= $contact['type'] == 'startup' ? 'Startup' : 'Public Institution' ?></div>
                     </div>
                     <?php if ($contact['unseen'] > 0 && $selectedId != $contact['id']): ?>
-                        <div class="unseen-badge"></div>
+                        <div class="unseen-badge" id="unseen-badge-<?= $contact['id'] ?>"></div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
-    
+
     <div class="chat-area">
         <?php if ($selectedId && $selectedType): ?>
             <?php
@@ -387,80 +387,25 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                 $contact_logo = $contact_row ? $contact_row['logo'] : '';
             }
 
-            $mark_seen_query = "UPDATE messages 
-                                SET seen = 1 
-                                WHERE sender_id = $selectedId AND receiver_id = $currentUserId AND seen = 0";
+            // Mark messages as seen when chat is opened
+            $mark_seen_query = "UPDATE messages
+                                 SET seen = 1
+                                 WHERE sender_id = $selectedId AND receiver_id = $currentUserId AND seen = 0";
             mysqli_query($conn, $mark_seen_query);
-
-            $messages_query = "SELECT * FROM messages 
-                               WHERE (sender_id = $currentUserId AND receiver_id = $selectedId) 
-                                  OR (sender_id = $selectedId AND receiver_id = $currentUserId) 
-                               ORDER BY sent_at ASC";
-            $messages_result = mysqli_query($conn, $messages_query);
             ?>
-            
+
             <div class="chat-header">
                 <img src="../uploads/<?= htmlspecialchars($contact_logo) ?>" alt="<?= htmlspecialchars($contact_name) ?>" class="chat-avatar">
                 <div class="chat-name"><?= htmlspecialchars($contact_name) ?></div>
             </div>
-            
-            <div class="messages-container" id="messagesContainer">
-                <?php 
-                $lastMessage = null;
-                while ($msg = mysqli_fetch_assoc($messages_result)): 
-                    $lastMessage = $msg;
-                    $isSent = $msg['sender_id'] == $currentUserId;
-                    ?>
-                    <div class="message <?= $isSent ? 'sent' : 'received' ?>">
-                        <?php if (!$isSent): ?>
-                            <img src="../uploads/<?= htmlspecialchars($contact_logo) ?>" alt="<?= htmlspecialchars($contact_name) ?>" class="message-avatar">
-                        <?php endif; ?>
-                        
-                        <div>
-                            <div class="message-bubble">
-                                <?= nl2br(htmlspecialchars($msg['message'])) ?>
-                                <?php
-                                $media_query = "SELECT * FROM media_chat WHERE message_id = " . $msg['message_id'];
-                                $media_result = mysqli_query($conn, $media_query);
-                                while ($media = mysqli_fetch_assoc($media_result)) {
-                                    $media_url = "../uploads/" . htmlspecialchars($media['file_path']);
-                                    if ($media['media_type'] == 'image') {
-                                        echo "<br><a href='#' data-bs-toggle='modal' data-bs-target='#imageModal' data-img='$media_url'>
-                                                <img src='$media_url' class='message-media'>
-                                              </a>";
-                                    } elseif ($media['media_type'] == 'video') {
-                                        echo "<br><video width='200' controls class='message-media'><source src='$media_url' type='video/mp4'></video>";
-                                    } elseif ($media['media_type'] == 'document') {
-                                        $filename = basename($media['file_path']);
-                                        echo "<br><a href='$media_url' target='_blank' class='document-link' style='color: " . ($isSent ? 'white' : '#0C1BA3') . "'>$filename</a>";
-                                    }
-                                }
-                                ?>
-                            </div>
-                            <div class="message-time">
-                                <?= date('M d, H:i', strtotime($msg['sent_at'])) ?>
-                            </div>
-                            <?php
-                                $lastSeenQuery = mysqli_query($conn, "
-                                    SELECT message_id FROM messages 
-                                    WHERE sender_id = $currentUserId AND receiver_id = $selectedId AND seen = 1 
-                                    ORDER BY message_id DESC LIMIT 1
-                                ");
-                                $lastSeenMessage = mysqli_fetch_assoc($lastSeenQuery);
-                                $lastSeenMessageId = $lastSeenMessage['message_id'] ?? null;
-                            ?>
 
-                            <?php if ($isSent && $msg['message_id'] == $lastSeenMessageId): ?>
-                                <div class='message-seen'>Seen</div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            </div>
-            
-            <form id="chatForm" action="send_message.php?id=<?= $selectedId ?>&type=<?= $selectedType ?>" method="POST" enctype="multipart/form-data">
+            <div class="messages-container" id="messagesContainer">
+                </div>
+
+            <form id="chatForm" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="receiver_id" value="<?= $selectedId ?>">
-                
+                <input type="hidden" name="receiver_type" value="<?= $selectedType ?>">
+
                 <div class="input-area">
                     <div id="filePreviewContainer"></div>
                     <div class="input-row">
@@ -493,14 +438,84 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    const messagesContainer = document.getElementById("messagesContainer");
+    const chatForm = document.getElementById('chatForm');
+    const messageInput = document.querySelector('.message-input');
+    const fileInput = document.getElementById('fileInput');
+    const filePreviewContainer = document.getElementById('filePreviewContainer');
+    const currentUserId = <?= json_encode($currentUserId) ?>;
+    const selectedId = <?= json_encode($selectedId) ?>;
+    const selectedType = <?= json_encode($selectedType) ?>;
+    const contactLogo = <?= json_encode(isset($contact_logo) ? $contact_logo : '') ?>;
+    const contactName = <?= json_encode(isset($contact_name) ? $contact_name : '') ?>;
+
     function scrollToBottom() {
-        const container = document.getElementById("messagesContainer");
-        container.scrollTop = container.scrollHeight;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    window.onload = scrollToBottom;
-    
+    function fetchMessages() {
+        if (!selectedId) return;
+
+        fetch(fetch_messages.php?id=${selectedId}&type=${selectedType})
+            .then(response => response.text())
+            .then(data => {
+                const isScrolledToBottom = messagesContainer.scrollHeight - messagesContainer.clientHeight <= messagesContainer.scrollTop + 1;
+                messagesContainer.innerHTML = data;
+                if (isScrolledToBottom) {
+                    scrollToBottom();
+                }
+                updateUnseenBadges(); // Update unseen counts after fetching messages
+            })
+            .catch(error => console.error('Error fetching messages:', error));
+    }
+
+    function updateUnseenBadges() {
+        // This function would typically fetch unseen counts for all contacts
+        // For simplicity, this example just hides the badge for the currently active chat
+        if (selectedId) {
+            const badge = document.getElementById(unseen-badge-${selectedId});
+            if (badge) {
+                badge.style.display = 'none';
+            }
+        }
+    }
+
+    function sendMessage(e) {
+        e.preventDefault();
+        const formData = new FormData(chatForm);
+        formData.append('current_user_id', currentUserId); // Pass current user ID
+
+        fetch('send_message.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // Expect JSON response
+        .then(data => {
+            if (data.status === 'success') {
+                messageInput.value = '';
+                removeFile(); // Clear file preview and input
+                fetchMessages(); // Refresh messages
+            } else {
+                console.error('Error sending message:', data.message);
+                alert('Error sending message: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error sending message:', error));
+    }
+
+    // Initial load and auto-scroll
+    window.onload = () => {
+        if (selectedId) {
+            fetchMessages();
+            scrollToBottom();
+            // Start polling for new messages every 3 seconds
+            setInterval(fetchMessages, 3000);
+        }
+    };
+
+    // Image Modal
     const imageModal = document.getElementById('imageModal');
     imageModal.addEventListener('show.bs.modal', function (event) {
         const trigger = event.relatedTarget;
@@ -508,27 +523,24 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
         const previewImg = document.getElementById('previewImage');
         previewImg.src = imgUrl;
     });
-    
-    const fileInput = document.getElementById('fileInput');
-    const filePreviewContainer = document.getElementById('filePreviewContainer');
-    const chatForm = document.getElementById('chatForm');
-    
+
+    // File input and preview
     fileInput.addEventListener('change', function(e) {
         filePreviewContainer.innerHTML = '';
-        
+
         if (this.files && this.files[0]) {
             const file = this.files[0];
             const fileType = file.type.split('/')[0];
             const filePreview = document.createElement('div');
             filePreview.className = 'file-preview';
-            
+
             if (fileType === 'image') {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     filePreview.appendChild(img);
-                    
+
                     const fileInfo = document.createElement('div');
                     fileInfo.className = 'file-info';
                     fileInfo.innerHTML = `
@@ -538,13 +550,13 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                     filePreview.appendChild(fileInfo);
                 }
                 reader.readAsDataURL(file);
-            } 
+            }
             else if (fileType === 'video') {
                 const video = document.createElement('video');
                 video.controls = true;
-                video.innerHTML = `<source src="${URL.createObjectURL(file)}" type="${file.type}">`;
+                video.innerHTML = <source src="${URL.createObjectURL(file)}" type="${file.type}">;
                 filePreview.appendChild(video);
-                
+
                 const fileInfo = document.createElement('div');
                 fileInfo.className = 'file-info';
                 fileInfo.innerHTML = `
@@ -552,7 +564,7 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                     <div class="remove-file" onclick="removeFile()">Remove</div>
                 `;
                 filePreview.appendChild(fileInfo);
-            } 
+            }
             else {
                 filePreview.innerHTML = `
                     <div class="file-info">
@@ -561,31 +573,33 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
                     </div>
                 `;
             }
-            
+
             filePreviewContainer.appendChild(filePreview);
         }
     });
-    
+
     function removeFile() {
         fileInput.value = '';
         filePreviewContainer.innerHTML = '';
     }
-    
-    const textarea = document.querySelector('.message-input');
-    textarea.addEventListener('input', function() {
+
+    messageInput.addEventListener('input', function() {
         this.style.height = 'auto';
         const maxHeight = 120;
         this.style.height = Math.min(this.scrollHeight, maxHeight) + 'px';
         this.style.overflowY = this.scrollHeight > maxHeight ? 'auto' : 'hidden';
     });
-    
-    textarea.addEventListener('keydown', function(e) {
+
+    // Send message on Enter key (without Shift)
+    messageInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            chatForm.submit();
+            sendMessage(e); // Call sendMessage directly
         }
     });
+
+    // Handle form submission via sendMessage function
+    chatForm.addEventListener('submit', sendMessage);
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -24,94 +24,190 @@ $institution_id = $institution['institution_id'];
     <title>Institution Profile - Masar Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Shared Styles from Startup Profile */
+        .masar-create-btn {
+            display: block;
+            margin: 0 auto;
+            background-color: #02FA72;
+            color: #0C1BA3;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            width: 200px;
+        }
+
+        .masar-create-btn:hover {
+            background-color: #01db62;
+            color: #091470;
+        }
+
         .navbar { margin-bottom: 20px; }
-        .profile-info { background-color: #f8f9fa; padding: 20px; border-radius: 30px; height: 800px; padding: 0; }
-        .media-preview img, .media-preview video { max-width: 100%; max-height: 300px; margin: 5px 0; }
-        .content-section {margin-top: 20px;}
+        .profile-info {
+            background-color: #f8f9fa;
+            padding: 0;
+            border-radius: 30px;
+            height: 800px; /* This height might need adjustment based on content */
+            position: relative;
+        }
+        .media-preview img, .media-preview video {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 5px 0;
+        }
+        .content-section {
+            margin-top: 20px;
+        }
+
+        /* Section Button Styles */
         .section-btn {
             background: none;
             border: none;
-            color: #0d6efd;
+            color: grey;
             font-weight: 500;
             padding: 6px 12px;
             cursor: pointer;
+            text-decoration: none;
         }
-        .section-btn:hover, .section-btn:focus, .section-btn:active {
-            color: #d63384;
-            text-decoration: underline;
-            outline: none;
+
+        .section-btn.active,
+        .section-btn:hover,
+        .section-btn:focus {
+            color: #0C1BA3; /* Blue color for active/hover */
         }
-        .btn-outline-pink {
-            color: #d63384;
-            border: 1px solid #d63384;
-            background-color: transparent;
+
+        /* Create Button Styles */
+        .btn-create {
+            display: block;
+            background-color: #02FA72;
+            color: #0C1BA3;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
         }
-        .btn-outline-pink:hover, .btn-outline-pink:focus, .btn-outline-pink:active {
-            color: white;
-            background-color: #d63384;
-            border-color: #d63384;
+
+        .btn-create:hover {
+            background-color: #01db62;
+            color: #091470;
+        }
+
+        /* Social Icons Profile Styles */
+        .social-icons-profile {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding-left: 0;
+            list-style: none; /* Remove default list styling */
+        }
+
+        .social-icons-profile a {
+            display: inline-block;
+        }
+
+        .social-icons-profile img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+
+        /* Edit Button Fixed Position */
+        .edit-btn-fixed {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%; /* Ensure it spans the width of its parent for centering */
+        }
+         .edit-btn-fixed a {
+            display: block;
+            margin-bottom: 10px; /* Space between the two links */
         }
     </style>
 </head>
 <body>
 <?php include('../components/navbar.php'); ?>
 
-
-<div class="container mt-4 ps-lg-5 pe-lg-5 ps-xl-5 pe-xl-5" >
-
+<div class="container mt-4 ps-lg-5 pe-lg-5 ps-xl-5 pe-xl-5">
     <div class="row">
         <div class="col-md-4">
-    <div class="profile-info mb-4" style="height: 800px; background-color: #f8f9fa; position: relative;">
-
-    <div class="top-child text-center" style="height: 198px; width: 100%; background-image: url('../images/account_bg.png'); background-size: cover; background-position: center; position: relative;border-radius: 30px 30px 0 0;">
+            <div class="profile-info mb-4">
+                <div class="top-child text-center" style="height: 198px; width: 100%; background-image: url('../images/account_bg.png'); background-size: cover; background-position: center; position: relative; border-radius: 30px 30px 0 0;">
                     <?php if (!empty($institution['logo'])): ?>
-                        <img src="../uploads/<?php echo htmlspecialchars($institution['logo']); ?>" class="rounded-circle"
-                             style="width: 123px; height: 123px; object-fit: cover; position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);">
+                        <img src="../uploads/<?php echo htmlspecialchars($institution['logo']); ?>"
+                             class="rounded-circle"
+                             style="
+                                 width: 123px;
+                                 height: 123px;
+                                 object-fit: cover;
+                                 position: absolute;
+                                 bottom: -60px;
+                                 left: 50%;
+                                 transform: translateX(-50%);
+                             ">
                     <?php endif; ?>
                 </div>
-                <div style="height: 45px;"></div>
 
+                <div style="height: 45px;"></div>
                 <div class="text-center mt-5 mb-4">
                     <h2><?php echo htmlspecialchars($institution['institution_name']); ?></h2>
                 </div>
-
                 <div class="mx-4">
                     <h4 class="mt-3">About</h4>
                     <p><?php echo nl2br(htmlspecialchars($institution['about_section'])); ?></p>
 
                     <?php if (!empty($institution['address'])): ?>
-                        <p><strong>Address:</strong> <?php echo htmlspecialchars($institution['address']); ?></p>
+                        <p><img src="../pages/icons/pin.png" alt="adress" style="width: 23px;"/>    <?php echo htmlspecialchars($institution['address']); ?></p>
                     <?php endif; ?>
 
                     <?php if (!empty($institution['phone_number'])): ?>
-                        <p><strong>Phone:</strong> <?php echo htmlspecialchars($institution['phone_number']); ?></p>
+                        <p><img src="../pages/icons/Phone.png" alt="phone" style="width: 24px;"/>     <?php echo htmlspecialchars($institution['phone_number']); ?></p>
                     <?php endif; ?>
 
                     <?php if (!empty($institution['contact_email'])): ?>
-                        <p><strong>Email:</strong> <?php echo htmlspecialchars($institution['contact_email']); ?></p>
+                        <p><img src="../pages/icons/mail.png" alt="email" style="width: 22px;"/>      <?php echo htmlspecialchars($institution['contact_email']); ?></p>
                     <?php endif; ?>
 
                     <?php if (!empty($institution['website_url'])): ?>
                         <p><strong>Website:</strong> <a href="<?php echo htmlspecialchars($institution['website_url']); ?>" target="_blank"><?php echo htmlspecialchars($institution['website_url']); ?></a></p>
                     <?php endif; ?>
 
-                    <ul>
+                    <div class="social-icons-profile">
                         <?php if (!empty($institution['facebook_link'])): ?>
-                            <li><a href="<?php echo htmlspecialchars($institution['facebook_link']); ?>" target="_blank">Facebook</a></li>
+                            <a href="<?php echo htmlspecialchars($institution['facebook_link']); ?>" target="_blank">
+                                <img src="../pages/icons/facebook_blue.png" alt="Facebook" />
+                            </a>
                         <?php endif; ?>
+
                         <?php if (!empty($institution['linkedin_link'])): ?>
-                            <li><a href="<?php echo htmlspecialchars($institution['linkedin_link']); ?>" target="_blank">LinkedIn</a></li>
+                            <a href="<?php echo htmlspecialchars($institution['linkedin_link']); ?>" target="_blank">
+                                <img src="../pages/icons/linkedin_blue.png" alt="LinkedIn" />
+                            </a>
+                        <?php endif; ?>
+
+                        <?php if (!empty($institution['instagram_link'])): ?>
+                            <a href="<?php echo htmlspecialchars($institution['instagram_link']); ?>" target="_blank">
+                                <img src="../pages/icons/insta_blue.png" alt="Instagram" />
+                            </a>
                         <?php endif; ?>
                         <?php if (!empty($institution['x_link'])): ?>
-                            <li><a href="<?php echo htmlspecialchars($institution['x_link']); ?>" target="_blank">X</a></li>
+                            <a href="<?php echo htmlspecialchars($institution['x_link']); ?>" target="_blank">
+                                <img src="../pages/icons/twitter_blue.png" alt="X" /> </a>
                         <?php endif; ?>
-                        <?php if (!empty($institution['instagram_link'])): ?>
-                            <li><a href="<?php echo htmlspecialchars($institution['instagram_link']); ?>" target="_blank">Instagram</a></li>
-                        <?php endif; ?>
-                    </ul>
+                    </div>
 
-                    <div class="text-center mt-3">
-                        <a href="../includes/update_profile_institution.php" class="btn btn-warning">Edit Profile</a>
+                    <div class="edit-btn-fixed mb-3 text-center">
+                        <a href="../includes/update_profile_institution.php" class="btn btn-primary" style="background-color: #0C1BA3;  color: white;">Edit Profile Infos</a> </br>
+                        <div>
+                            <img src="../pages/icons/logout.svg" alt="Logout" style="width: 16px; vertical-align: middle; margin-right: 5px;">
+                            <a href="../authentication/logout.php" style="color: #F13E3E; font-weight: bold; text-decoration: none;">
+                                Logout
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,13 +216,12 @@ $institution_id = $institution['institution_id'];
         <div class="col-md-8">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div>
-                    <button class="section-btn me-2" onclick="showSection('post')">Posts</button>
-                    <button class="section-btn me-2" onclick="showSection('event')">Events</button>
-                    <button class="section-btn" onclick="showSection('challenge')">Challenges</button>
+                    <button class="section-btn active" data-section="post">Posts</button>
+                    <button class="section-btn" data-section="event">Events</button>
+                    <button class="section-btn" data-section="challenge">Challenges</button>
                 </div>
-
                 <div class="dropdown">
-                    <button class="btn btn-outline-pink dropdown-toggle" type="button" id="createDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn-create dropdown-toggle" type="button" id="createDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         + Create
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="createDropdown">
@@ -149,6 +244,59 @@ $institution_id = $institution['institution_id'];
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sectionButtons = document.querySelectorAll('.section-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        // Function to activate a section
+        function activateSection(sectionName) {
+            sectionButtons.forEach(btn => {
+                if (btn.getAttribute('data-section') === sectionName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            contentSections.forEach(section => {
+                if (section.id === sectionName + '-section') {
+                    section.classList.remove('d-none');
+                } else {
+                    section.classList.add('d-none');
+                }
+            });
+        }
+
+        // Handle initial section display based on URL or default to 'post'
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeSectionFromUrl = urlParams.get('section');
+
+        if (activeSectionFromUrl) {
+            activateSection(activeSectionFromUrl);
+        } else {
+            // Default to 'post' if no section parameter is present
+            activateSection('post');
+        }
+
+        // Add event listeners for section buttons
+        sectionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetSection = this.getAttribute('data-section');
+                activateSection(targetSection);
+
+                // Update URL without reloading the page (HTML5 History API)
+                history.pushState(null, '', `?section=${targetSection}`);
+            });
+        });
+    });
+</script>
+
 
 <div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -214,8 +362,8 @@ $institution_id = $institution['institution_id'];
           <div class="mb-2"><label>Title</label><input type="text" name="challenge_title" class="form-control" required></div>
           <div class="mb-2"><label>Description</label><textarea name="challenge_description" rows="4" class="form-control" required></textarea></div>
           <div class="mb-2"><label>Deadline</label><input type="date" name="challenge_deadline" class="form-control" required></div>
-          
-          
+
+
           <label for="challenge_category">Category:</label>
 <select name="challenge_category" id="challenge_category" class="form-control" required>
     <option value="Operations">Operations</option>
@@ -244,17 +392,5 @@ $institution_id = $institution['institution_id'];
 </div>
 
 <?php include('../components/footer.php'); ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function showSection(section) {
-        document.getElementById('post-section').classList.add('d-none');
-        document.getElementById('event-section').classList.add('d-none');
-        document.getElementById('challenge-section').classList.add('d-none');
-
-        document.getElementById(section + '-section').classList.remove('d-none');
-    }
-</script>
 </body>
 </html>

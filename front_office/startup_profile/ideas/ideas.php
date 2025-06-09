@@ -14,6 +14,22 @@
             }
         }
     ?>
+<style>
+.card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+            height: 380px;
+            padding: 20px;
+            width: 100%;
+            margin: 0 auto;
+            border: 0;
+
+        }
+
+</style>
+
+
 
         <div class="card mb-4">
             <div class="card-body">

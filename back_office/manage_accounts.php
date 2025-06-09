@@ -79,8 +79,8 @@ while ($row = mysqli_fetch_assoc($result_users)) {
   </div>
 </div>
 
-
-  <table id="userTable" class="table table-bordered table-striped">
+  
+<table id="userTable" class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>Email</th>

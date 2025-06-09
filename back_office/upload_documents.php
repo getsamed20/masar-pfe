@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['document_file'])) {
     $admin_id = mysqli_real_escape_string($conn, $_SESSION['admin_id']);
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
 
     $file = $_FILES['document_file'];
     $file_name = $file['name'];
@@ -27,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['document_file'])) {
     $file_path = $upload_dir . uniqid() . '.' . $file_ext;
 
     if (move_uploaded_file($file_tmp, $file_path)) {
-        $sql = "INSERT INTO documents (admin_id, title, description, file_path)
-                VALUES ('$admin_id', '$title', '$description', '$file_path')";
+        $sql = "INSERT INTO documents (admin_id, title, description, category, file_path)
+                VALUES ('$admin_id', '$title', '$description', '$category', '$file_path')";
         if (mysqli_query($conn, $sql)) {
             $message = "Document uploaded successfully!";
         } else {
@@ -65,6 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['document_file'])) {
             <textarea name="description" class="form-control"></textarea>
         </div>
         <div class="mb-3">
+            <label>Category</label>
+            <select name="category" class="form-select" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="Statistics & Reports">Statistics and Reports</option>
+                <option value="Laws & Regulations">Laws and Regulations</option>
+                <option value="Innovation & Technology">Innovation and Technology</option>
+                <option value="Case Studies & Projects">Case Studies and Projects</option>
+                <option value="Research & Publications">Research and Publications</option>
+                <option value="Guides & Toolkits">Guides and Toolkits</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label>Select File</label>
             <input type="file" name="document_file" class="form-control" required>
         </div>
@@ -74,10 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['document_file'])) {
     <hr>
     <h4 class="mt-4">Uploaded Documents</h4>
     <?php
-    
-    //$admin_id = mysqli_real_escape_string($conn, $_SESSION['admin_id']);
-    //$query = "SELECT * FROM documents WHERE admin_id = '$admin_id' ORDER BY uploaded_at DESC";
-
     $query = "SELECT * FROM documents ORDER BY uploaded_at DESC";
     $result = mysqli_query($conn, $query);
     while ($doc = mysqli_fetch_assoc($result)):
@@ -86,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['document_file'])) {
             <div class="card-body">
                 <h5><?= htmlspecialchars($doc['title']) ?></h5>
                 <p><?= htmlspecialchars($doc['description']) ?></p>
+                <p><strong>Category:</strong> <?= htmlspecialchars($doc['category']) ?></p>
                 <a href="<?= $doc['file_path'] ?>" target="_blank" class="btn btn-sm btn-outline-primary">Download</a>
                 <a href="delete_document.php?id=<?= $doc['document_id'] ?>" 
                    class="btn btn-sm btn-outline-danger"

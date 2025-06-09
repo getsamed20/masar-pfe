@@ -2,7 +2,6 @@
 
 include('../includes/db.php');
 
-
 $query = "SELECT * FROM startups ORDER BY startup_name ASC";
 $result = mysqli_query($conn, $query);
 $startups = [];
@@ -157,7 +156,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <div class="startup-about"><?php echo nl2br(htmlspecialchars((string)$startup['about_section'])); ?></div>
                         <div class="card-buttons">
                             <a href="<?php echo isset($_SESSION['user_id']) ? '..\chat\chat.php' : '#'; ?>" <?php if (!isset($_SESSION['user_id'])) echo 'data-bs-toggle="modal" data-bs-target="#loginModal"'; ?>>
-                                <img src="../components/chat.png" alt="Message"> Message
+                                <img src="icons/message-outline.png" alt="Message" style="width:18px" > Message
                             </a>
                             <a href="view_startup_profile.php?id=<?php echo $startup['user_id']; ?>&type=startup">
                                 <img src="profile.png" alt="Profile"> View Profile

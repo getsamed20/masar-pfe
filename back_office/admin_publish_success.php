@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 </head>
 <body>
 <?php include('admin_navbar.php'); ?>
-<div class="container py-4">
+<div>
 
   <h2>Publish a New Success Story</h2>
 
