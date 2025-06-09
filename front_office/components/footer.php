@@ -14,12 +14,7 @@
   />
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .footer {
+     .footer {
       background-color: #0c1ba3;
       color: white;
       font-family: 'IBM Plex Sans', sans-serif;

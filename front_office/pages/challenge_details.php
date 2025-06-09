@@ -6,7 +6,6 @@ include '../includes/db.php';
 include '../components/navbar.php';
 
 
-
 $role = $_SESSION['role'] ?? null;
 $institution_id = $_SESSION['institution_id'] ?? null;
 
@@ -22,7 +21,7 @@ if (!$getChallenge || mysqli_num_rows($getChallenge) === 0) {
     exit;
 }
 $getChallengeMedia = mysqli_query($conn, "
-    SELECT * FROM media 
+    SELECT * FROM media
     WHERE challenge_id = '$challenge_id'
 ");
 
@@ -37,6 +36,113 @@ $challenge = mysqli_fetch_assoc($getChallenge);
   <title>View Challenge</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+ body {
+            background-color: #F2F6FF;
+            font-family: 'IBM Plex Sans Devanagari', sans-serif;
+            
+        }
+        </style>
+  <style>
+    .card {
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Style for the "View Details" button */
+    .view-solution-details {
+      background-color: #02FA72;
+      color: #0C1BA3;
+      border: 1px solid #02FA72;
+      padding: 6px 12px; /* Smaller padding */
+      font-size: 0.9rem; /* Smaller font size */
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      margin-right: 10px; /* Add some spacing between buttons */
+    }
+
+    .view-solution-details:hover {
+      background-color: #02FA72; /* Keep same on hover or slight variation */
+      color: #0C1BA3;
+      opacity: 0.9;
+    }
+
+    /* Style for the "Download Attachment" button */
+    .download-solution-attachment {
+      background-color: transparent;
+      color: #0C1BA3;
+      border: 1px solid #0C1BA3;
+      padding: 6px 12px; /* Smaller padding */
+      font-size: 0.9rem; /* Smaller font size */
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .download-solution-attachment:hover {
+      background-color: #0C1BA3;
+      color: white;
+    }
+
+    .status-badge {
+      padding: 0.3em 0.6em; /* Smaller padding */
+      border-radius: 0.4rem; /* Slightly smaller border-radius */
+      font-size: 0.8rem; /* Smaller font size */
+      font-weight: bold;
+      margin-left: 15px; /* Increased margin-left for state */
+      display: inline-block; /* Ensure it respects margin and padding */
+    }
+
+    /* Custom styles for Edit and Delete buttons */
+    .btn-edit-challenge {
+        background-color: #002592;
+        color: white;
+        border: 1px solid #002592;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-flex; /* Use flexbox for icon alignment */
+        align-items: center; /* Vertically align icon and text */
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-edit-challenge:hover {
+        background-color: #001a6b; /* Darken on hover */
+        color: white;
+        border-color: #001a6b;
+    }
+
+    .btn-delete-challenge {
+        background-color: #BA0000;
+        color: white;
+        border: 1px solid #BA0000;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-flex; /* Use flexbox for icon alignment */
+        align-items: center; /* Vertically align icon and text */
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-delete-challenge:hover {
+        background-color: #8c0000; /* Darken on hover */
+        color: white;
+        border-color: #8c0000;
+    }
+
+    .btn-edit-challenge img,
+    .btn-delete-challenge img {
+        margin-right: 5px; /* Space between icon and text */
+        height: 16px; /* Adjust icon size as needed */
+        width: 16px; /* Adjust icon size as needed */
+    }
+  </style>
 </head>
 <body>
 <div class="container my-5">
@@ -78,22 +184,26 @@ $challenge = mysqli_fetch_assoc($getChallenge);
     <?php endif; ?>
 
     <?php if ($role === 'institution' && $institution_id == $challenge['institution_id']): ?>
-      <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editChallengeModal<?= $challenge['challenge_id'] ?>">Edit</button>
-      <a href="../public_institution_profile/challenges/delete_challenge.php?challenge_id=<?= $challenge_id ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this challenge?');">Delete</a>
+      <button class="btn-edit-challenge" data-bs-toggle="modal" data-bs-target="#editChallengeModal<?= $challenge['challenge_id'] ?>">
+        <img src="icons/edit.png" alt="Edit Icon"> Edit
+      </button>
+      <a href="../public_institution_profile/challenges/delete_challenge.php?challenge_id=<?= $challenge_id ?>" class="btn-delete-challenge" onclick="return confirm('Are you sure you want to delete this challenge?');">
+        <img src="icons/trash-empty.png" alt="Delete Icon"> Delete
+      </a>
     <?php endif; ?>
   </div>
 
   <h3 class="mt-5">Submitted Solutions</h3>
 
   <?php
+
   $canViewAll = $role === 'institution' && $institution_id == $challenge['institution_id'];
   $canViewOwn = false;
   $solutions = false;
-
   if ($role === 'startup' && isset($_SESSION['startup_id'])) {
       $startup_id = $_SESSION['startup_id'];
       $getMySolution = mysqli_query($conn, "
-          SELECT s.*, st.startup_name 
+          SELECT s.*, st.startup_name
           FROM solutions s
           JOIN startups st ON s.startup_id = st.startup_id
           WHERE s.challenge_id = '$challenge_id' AND s.startup_id = '$startup_id'
@@ -106,7 +216,7 @@ $challenge = mysqli_fetch_assoc($getChallenge);
 
   if ($canViewAll) {
       $solutions = mysqli_query($conn, "
-          SELECT s.*, st.startup_name 
+          SELECT s.*, st.startup_name
           FROM solutions s
           JOIN startups st ON s.startup_id = st.startup_id
           WHERE s.challenge_id = '$challenge_id'
@@ -116,25 +226,55 @@ $challenge = mysqli_fetch_assoc($getChallenge);
   ?>
 
   <?php if ($solutions && mysqli_num_rows($solutions) > 0): ?>
+      <?php // echo '$solutions' ?>
+
     <?php while ($solution = mysqli_fetch_assoc($solutions)): ?>
+            <?php // echo '$solutions' ?>
+
       <div class="card mb-3">
-        <div class="card-header">
-          <strong><?= htmlspecialchars($solution['proposal_title']) ?></strong>
-          <span class="text-muted float-end">
-            by <?= htmlspecialchars($solution['startup_name']) ?> on <?= date('F j, Y', strtotime($solution['submitted_at'])) ?>
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <strong><?= htmlspecialchars($solution['proposal_title']) ?></strong>
+            <span class="text-muted">
+              by <?= htmlspecialchars($solution['startup_name']) ?> on <?= date('F j, Y', strtotime($solution['submitted_at'])) ?>
+            </span>
+          </div>
+          <?php
+            $status_bg_color = '';
+            $status_text_color = '';
+            switch ($solution['status']) {
+                case 'pending':
+                    $status_bg_color = '#CCFFD0';
+                    $status_text_color = '#0C1BA3';
+                    break;
+                case 'under review':
+                    $status_bg_color = '#ADD8E6';
+                    $status_text_color = '#000080';
+                    break;
+                case 'rejected':
+                    $status_bg_color = '#FF0004';
+                    $status_text_color = 'white';
+                    break;
+                case 'selected':
+                    $status_bg_color = '#64C40C';
+                    $status_text_color = 'white';
+                    break;
+                default:
+                    $status_bg_color = '#CCCCCC';
+                    $status_text_color = '#333333';
+                    break;
+            }
+          ?>
+          <span class="status-badge" style="background-color: <?= $status_bg_color ?>; color: <?= $status_text_color ?>;">
+            <?= ucfirst($solution['status']) ?>
           </span>
         </div>
         <div class="card-body">
           <p><?= nl2br(htmlspecialchars($solution['proposal_description'])) ?></p>
+          <a href="solution.php?solution_id=<?= $solution['solution_id'] ?>" class="view-solution-details">View Details</a>
           <?php if (!empty($solution['file_attachment']) && file_exists($solution['file_attachment'])): ?>
-            <a href="<?= htmlspecialchars($solution['file_attachment']) ?>" target="_blank" class="btn btn-sm btn-outline-primary">Download Attachment</a>
+            <a href="<?= htmlspecialchars($solution['file_attachment']) ?>" target="_blank" class="download-solution-attachment">Download Attachment</a>
           <?php endif; ?>
-          <a href="solution.php?solution_id=<?= $solution['solution_id'] ?>" class="btn btn-sm btn-primary">View Details</a>
-          <span class="badge bg-<?=
-            $solution['status'] === 'selected' ? 'success' :
-            ($solution['status'] === 'rejected' ? 'danger' : 'secondary') ?>">
-            <?= ucfirst($solution['status']) ?>
-          </span>
         </div>
       </div>
     <?php endwhile; ?>
@@ -194,8 +334,6 @@ $challenge = mysqli_fetch_assoc($getChallenge);
 </select>
 
 </div>
-
-
           <div class="mb-3">
             <label class="form-label">Replace Attached File (Optional)</label>
             <input type="file" class="form-control" name="challenge_file">

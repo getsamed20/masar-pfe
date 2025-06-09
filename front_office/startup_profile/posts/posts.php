@@ -83,5 +83,21 @@ while ($p = mysqli_fetch_assoc($posts)) {
     </div>
   </div>
 </div>
+<style>
+.card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+            height: 380px;
+            padding: 20px;
+            width: 100%;
+            margin: 0 auto;
+            border:
+        }
+
+</style>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

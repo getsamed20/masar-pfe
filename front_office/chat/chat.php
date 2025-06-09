@@ -554,7 +554,7 @@ while ($row = mysqli_fetch_assoc($contact_result)) {
             else if (fileType === 'video') {
                 const video = document.createElement('video');
                 video.controls = true;
-                video.innerHTML = `<source src="${URL.createObjectURL(file)}" type="${file.type}">`;
+                video.innerHTML = <source src="${URL.createObjectURL(file)}" type="${file.type}">;
                 filePreview.appendChild(video);
 
                 const fileInfo = document.createElement('div');

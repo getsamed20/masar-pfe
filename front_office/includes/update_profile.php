@@ -100,12 +100,12 @@ $profileLink= ($role=='startup')? '../startup_profile/startup_profile.php' : '..
         padding: 12px;
         font-weight: 600;
         border-radius: 12px;
-        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        background-color:#0C1BA3;
         border: none;
     }
 
     .btn-primary:hover {
-        background: linear-gradient(135deg, #0a58ca, #0d6efd);
+        background-color:#0C1BA3;
     }
 
     input[type="file"].form-control {

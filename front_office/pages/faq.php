@@ -296,7 +296,9 @@
                 </div>
                 <h3 class="contact-title">You have different questions?</h3>
                 <p class="contact-text">Masar's team will answer all your questions.<br>We ensure a quick response.</p>
-                <button class="contact-button">Contact Us</button>
+                
+                <button class="contact-button" onclick="window.location.href='mailto:masar.platform.tn@gmail.com?subject=Contact%20Request&body=Hello%2C%20I%20would%20like%20to%20get%20in%20touch%20with%20you%20regarding%20your%20platform.'">Contact Us</button>
+
             </div>
             
             <div class="call-box">

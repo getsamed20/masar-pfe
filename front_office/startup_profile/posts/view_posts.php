@@ -48,6 +48,11 @@ while ($p = mysqli_fetch_assoc($posts)) {
         }
     }
 
+    $startup_info = mysqli_query($conn, "SELECT startup_name, logo FROM startups WHERE startup_id = '{$p['startup_id']}'");
+    $startup_data = mysqli_fetch_assoc($startup_info);
+    $startup_name = $startup_data['startup_name'] ?? 'Unknown';
+    $startup_logo = $startup_data['logo'] ?? 'default-logo.png';
+
     echo '<div class="card mb-4"><div class="card-body">';
     echo '<p>' . nl2br(htmlspecialchars($p['content'])) . '</p>';
 
@@ -77,15 +82,24 @@ while ($p = mysqli_fetch_assoc($posts)) {
         echo '<video controls class="w-100 mb-2"><source src="../uploads/' . $vid . '" type="video/mp4">Your browser does not support the video tag.</video>';
     }
 
-    echo '
-    <button class="btn btn-outline-danger btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportPostId(' . $post_id . ')">
-        Report
-    </button>';
+   echo '
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="d-flex align-items-center">
+        <img src="../uploads/' . htmlspecialchars($startup_logo) . '" alt="Logo" class="rounded-circle me-2" style="width: 35px; height: 35px; object-fit: cover;">
+        <span class="fw-bold">' . htmlspecialchars($startup_name) . '</span>
+    </div>
+
+    <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportPostId(' . $post_id . ')">
+        <img src="../pages/icons/report.png" alt="Report" style="width: 20px; height: 20px;">
+    </button>
+</div>';
+
 
     echo '</div></div>';
 }
 ?>
 
+<!-- Report Modal -->
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form method="POST" onsubmit="return confirm('Are you sure you want to report this post?');">
@@ -120,6 +134,20 @@ while ($p = mysqli_fetch_assoc($posts)) {
     </form>
   </div>
 </div>
+
+<style>
+.card {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    height: auto;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    border: none;
+}
+</style>
+
 <script>
 function setReportPostId(postId) {
     document.getElementById('report_post_id').value = postId;
