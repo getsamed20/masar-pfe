@@ -18,6 +18,12 @@ $startup_id = $startup['startup_id'];
 ?>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}</style>
 <style>
  body {
             background-color: #F2F6FF;

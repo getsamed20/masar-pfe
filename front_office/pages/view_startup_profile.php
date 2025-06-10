@@ -28,15 +28,12 @@ $startup_id = $data['startup_id'];
     <title>Startup Profile - Masar Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
- body {
-            background-color: #F2F6FF;
-            font-family: 'IBM Plex Sans Devanagari', sans-serif;
-            
-        }
-        </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}</style>
     <style>
         .navbar { margin-bottom: 20px; }
         .profile-info {

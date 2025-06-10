@@ -64,15 +64,12 @@ $categories = [
     <meta charset="UTF-8">
     <title>Challenges List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
- body {
-            background-color: #F2F6FF;
-            font-family: 'IBM Plex Sans Devanagari', sans-serif;
-            
-        }
-        </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}</style>
     <style>
         .filter-label {
             color: #0C1BA3;

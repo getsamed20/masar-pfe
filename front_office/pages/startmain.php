@@ -2,7 +2,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
  body {
-            background-color: #F2F6FF;
+            background-color: #F2F6FF !important;
             font-family: 'IBM Plex Sans Devanagari', sans-serif;
             
         }

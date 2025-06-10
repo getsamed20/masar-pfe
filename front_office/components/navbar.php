@@ -417,7 +417,7 @@ if (isset($_SESSION['email'])) {
 >>>>>>> 518d23d3d3dbfd0089249a723dc4a10c51786cb6
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-warning text-dark">
+      <div class="modal-header text-dark">
         <h5 class="modal-title">Access Denied</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>

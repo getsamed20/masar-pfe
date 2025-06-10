@@ -18,15 +18,13 @@ $result = mysqli_query($conn, $sql);
 <head>
     <title><?= htmlspecialchars($category) ?> Documents</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
- body {
-            background-color: #F2F6FF;
-            font-family: 'IBM Plex Sans Devanagari', sans-serif;
-            
-        }
-        </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}</style>        </style>
     <style>
         .blue-title{color:#0C1BA3}
         .doc-card {

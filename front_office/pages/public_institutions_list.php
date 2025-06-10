@@ -23,10 +23,10 @@ $result = mysqli_query($conn, $query);
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #F2F6FF;
-            font-family: 'IBM Plex Sans', sans-serif;
-        }
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}
         .input-group .form-control {
             border-radius: 7px 0 0 7px;
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);

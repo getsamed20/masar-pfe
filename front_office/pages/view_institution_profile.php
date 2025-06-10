@@ -27,6 +27,12 @@ $institution_id = $data['institution_id'];
     <meta charset="UTF-8">
     <title>Masar Platform - Institution Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}</style>
     <style>
 
     </style>
@@ -125,7 +131,7 @@ $institution_id = $data['institution_id'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        You need to log in to start chatting with this institution. 🚀
+        You need to log in to start chatting with this institution. 
       </div>
     </div>
   </div>

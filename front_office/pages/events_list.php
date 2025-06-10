@@ -50,6 +50,12 @@ $events_query = mysqli_query($conn, $query);
     <meta charset="UTF-8">
     <title>All Events - Masar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}
     <style>
     .filter-label {
         color: #0C1BA3;

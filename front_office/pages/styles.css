@@ -4,6 +4,10 @@ body, html {
     height: 100%;
     font-family: 'IBM Plex Sans', sans-serif;
 }
+.body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}
 
 .header-container {
     background-image: url('masar.png');

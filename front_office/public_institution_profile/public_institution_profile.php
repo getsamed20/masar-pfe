@@ -23,8 +23,14 @@ $institution_id = $institution['institution_id'];
     <meta charset="UTF-8">
     <title>Institution Profile - Masar Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Shared Styles from Startup Profile */
+      body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}</style>
+
+    <style>
         .masar-create-btn {
             display: block;
             margin: 0 auto;
@@ -74,10 +80,9 @@ $institution_id = $institution['institution_id'];
         .section-btn.active,
         .section-btn:hover,
         .section-btn:focus {
-            color: #0C1BA3; /* Blue color for active/hover */
+            color: #0C1BA3;
         }
 
-        /* Create Button Styles */
         .btn-create {
             display: block;
             background-color: #02FA72;
@@ -94,7 +99,6 @@ $institution_id = $institution['institution_id'];
             color: #091470;
         }
 
-        /* Social Icons Profile Styles */
         .social-icons-profile {
             display: flex;
             flex-direction: row;
@@ -125,7 +129,7 @@ $institution_id = $institution['institution_id'];
         }
          .edit-btn-fixed a {
             display: block;
-            margin-bottom: 10px; /* Space between the two links */
+            margin-bottom: 10px; 
         }
     </style>
 </head>
@@ -201,7 +205,7 @@ $institution_id = $institution['institution_id'];
                     </div>
 
                     <div class="edit-btn-fixed mb-3 text-center">
-                        <a href="../includes/update_profile_institution.php" class="btn btn-primary" style="background-color: #0C1BA3;  color: white;">Edit Profile Infos</a> </br>
+                        <a href="../includes/update_profile.php" class="btn btn-primary" style="background-color: #0C1BA3;  color: white;">Edit Profile Infos</a> </br>
                         <div>
                             <img src="../pages/icons/logout.svg" alt="Logout" style="width: 16px; vertical-align: middle; margin-right: 5px;">
                             <a href="../authentication/logout.php" style="color: #F13E3E; font-weight: bold; text-decoration: none;">

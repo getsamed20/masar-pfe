@@ -33,7 +33,7 @@ function sendAccountStatusEmail($toEmail, $name, $role, $validated) {
                 <h3 style='color:green;'>Your account has been verified ✅</h3>
 <p>Hey <strong>$name</strong>,</p>
 <p>Welcome to <strong>Masar</strong> as <strong>$role</strong>! We're thrilled to have you with us.</p>
-<p>Your account is now active. To get the most out of Masar, please <a href='http://localhost/masar/front_office/authentication/insert_info.php'><strong>click here to complete your profile</strong></a> by adding your logo, bio, and contact information.</p>
+<p>Your account is now active. To get the most out of Masar, please <a href='http://localhost/masar-pfe/front_office/authentication/congrats.php'><strong>click here to complete your profile</strong></a> by adding your logo, bio, and contact information.</p>
 <p>Let’s shape the future together!</p>
 
             ";

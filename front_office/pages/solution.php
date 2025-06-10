@@ -54,6 +54,10 @@ include '../components/navbar.php';
     <title>Solution Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #F2F6FF !important;
+  font-family: 'IBM Plex Sans', sans-serif  !important;;
+}
         .card {
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3); /* Apply box-shadow to the card */
         }

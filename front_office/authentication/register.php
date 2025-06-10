@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmPassword = $_POST['confirmPassword'];
     $unique_identifier = $_POST['unique_identifier'];
 
-    // Check if terms checkbox was checked (server-side check, though jQuery Validate also handles this)
     if (!isset($_POST['termsCheckbox'])) {
         $error = "You must accept the Terms & Conditions.";
     } elseif ($password !== $confirmPassword) {
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $allowed_image_types = ['jpg', 'jpeg', 'png'];
         $logo_file = "";
 
-        // Check if logo file is uploaded and valid
         if (empty($logo) || $_FILES['logo']['error'] != 0 || !in_array($logo_ext, $allowed_image_types)) {
             $error = "Please upload a valid logo (JPG, JPEG, PNG).";
         } else {
@@ -41,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 && $_FILES['commercial_register']['error'] == 0 && $commercial_register_type == "pdf") {
 
                 if (move_uploaded_file($_FILES["commercial_register"]["tmp_name"], $commercial_register_target)) {
-                    // Logo upload
                     $logo_file = uniqid() . "." . $logo_ext;
                     $logo_target = $target_dir . $logo_file;
                     move_uploaded_file($logo_tmp, $logo_target);
@@ -90,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Keeps the container to the right on large screens */
+            justify-content: flex-end; 
         }
 
         .register-container {
@@ -303,8 +300,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .register-container {
                 width: 100%; /* Take full width on smaller screens */
                 border-radius: 0; /* Remove border-radius for full width on small screens */
-                box-shadow: none; /* Remove shadow on small screens for cleaner look */
-                padding: 15px; /* Adjust padding for smaller screens */
+                box-shadow: none; 
+                padding: 15px; 
             }
 
             .custom-file-upload {
@@ -334,6 +331,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="stepper-item">
                         <div class="stepper-counter">2</div>
                         <div class="stepper-label">Review</div>
+                    </div>
+                    <div class="stepper-item">
+                        <div class="stepper-counter">3</div>
+                        <div class="stepper-label">Completion</div>
                     </div>
                 </div>
                 <h2>Welcome! First things first...</h2>
@@ -406,9 +407,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="stepper-counter">1</div>
                     <div class="stepper-label">Account Details</div>
                 </div>
-                <div class="stepper-item active">
+                <div class="stepper-item completed">
                     <div class="stepper-counter">2</div>
                     <div class="stepper-label">Review</div>
+                </div>
+                <div class="stepper-item active">
+                    <div class="stepper-counter">3</div>
+                    <div class="stepper-label">Completion</div>
                 </div>
             </div>
         </div>
@@ -521,21 +526,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             };
             reader.readAsDataURL(file);
         } else {
-            // If no file is selected, revert to default
             logoPreview.style.backgroundImage = 'none';
-            icon.style.display = 'flex'; // Show icon again
+            icon.style.display = 'flex'; 
         }
     });
 
-    // Function to update the commercial register file name
     function updateFileName(input) {
         const labelText = document.getElementById('fileLabelText');
         if (input.files.length > 0) {
             labelText.textContent = input.files[0].name;
-            labelText.style.color = '#000'; // Change color to black for file name
+            labelText.style.color = '#000'; 
         } else {
             labelText.textContent = 'Document';
-            labelText.style.color = 'grey'; // Revert to grey if no file is selected
+            labelText.style.color = 'grey'; 
         }
     }
 </script>

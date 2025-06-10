@@ -7,29 +7,25 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Function to get poster name
+// Function to get poster name without prepared statements
 function getPosterName($postOwner, $postId, $postInstitutionId, $conn) {
     if ($postOwner === 'startup') {
+        $postIdEscaped = (int)$postId;
         $query = "SELECT s.startup_name 
-                    FROM posts p 
-                    JOIN startups s ON p.startup_id = s.startup_id 
-                    WHERE p.post_id = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $postId);
-        $stmt->execute();
-        $result = $stmt->get_result();
+                  FROM posts p 
+                  JOIN startups s ON p.startup_id = s.startup_id 
+                  WHERE p.post_id = $postIdEscaped";
+        $result = $conn->query($query);
         if ($row = $result->fetch_assoc()) {
             return $row['startup_name'];
         }
     } else {
+        $postIdEscaped = (int)$postId;
         $query = "SELECT i.institution_name 
-                    FROM posts_institution p 
-                    JOIN public_institutions i ON p.institution_id = i.institution_id 
-                    WHERE p.post_id = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $postId); 
-        $stmt->execute();
-        $result = $stmt->get_result();
+                  FROM posts_institution p 
+                  JOIN public_institutions i ON p.institution_id = i.institution_id 
+                  WHERE p.post_id = $postIdEscaped";
+        $result = $conn->query($query);
         if ($row = $result->fetch_assoc()) {
             return $row['institution_name'];
         }
@@ -56,22 +52,15 @@ $query = "SELECT
           WHERE 1=1";
 
 // Add reason filter if selected
-$params = [];
 if (isset($_GET['reason']) && !empty($_GET['reason'])) {
-    $query .= " AND reason = ?";
-    $params[] = $_GET['reason'];
+    // Escape user input to avoid SQL injection
+    $reasonEscaped = $conn->real_escape_string($_GET['reason']);
+    $query .= " AND reason = '$reasonEscaped'";
 }
 
-// Complete the query
 $query .= " GROUP BY post_id, post_institution_id, post_owner";
 
-// Prepare and execute the query
-$stmt = $conn->prepare($query);
-if (!empty($params)) {
-    $stmt->bind_param("s", $params[0]);
-}
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $conn->query($query);
 
 $reportedPosts = [];
 while ($row = $result->fetch_assoc()) {
@@ -79,6 +68,7 @@ while ($row = $result->fetch_assoc()) {
     $reportedPosts[] = $row;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
